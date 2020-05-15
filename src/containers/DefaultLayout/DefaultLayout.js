@@ -12,13 +12,12 @@ import {
   AppSidebarForm,
   AppSidebarHeader,
   AppSidebarMinimizer,
-  AppBreadcrumb2 as AppBreadcrumb,
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from '../../config/routing/_nav';
 // routes config
-import routes from '../../routes';
+import routes from '../../config/routing/routes';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -37,8 +36,8 @@ class DefaultLayout extends Component {
     return (
       <div className="app">
         <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+          <Suspense fallback={this.loading()}>
+            <DefaultHeader onLogout={e => this.signOut(e)} />
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -46,14 +45,13 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+              <AppSidebarNav navConfig={navigation} {...this.props} router={router} />
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes} router={router}/>
-            <Container fluid>
+            <Container fluid className="mt-4">
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {routes.map((route, idx) => {

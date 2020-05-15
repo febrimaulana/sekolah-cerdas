@@ -3,9 +3,12 @@ import { Link, NavLink } from 'react-router-dom';
 import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.svg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
+import { Input } from 'antd';
+
+const { Search } = Input;
 
 const propTypes = {
   children: PropTypes.node,
@@ -17,7 +20,7 @@ class DefaultHeader extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
+    const { children } = this.props;
 
     return (
       <React.Fragment>
@@ -35,6 +38,11 @@ class DefaultHeader extends Component {
           <NavItem className="px-3">
             <Link to="/users" className="nav-link">Users</Link>
           </NavItem>
+          <Search
+            placeholder="Cari Data Siswa"
+            onSearch={value => console.log(value)}
+            style={{ width: 200 }}
+          />
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
