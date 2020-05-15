@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Tooltip, Space } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import TableDefault from '../../../component/molecules/Table';
 import dataForm from './dataForm';
+import { useSelector, useDispatch } from 'react-redux';
 
 const DataSiswa = () => {
+
+    // State
+    // modal
+    const [visible, setVisible] = useState(false);
+    const [form, setForm] = useState([]);
+    const [formType, setFormType] = useState('');
+
+    // global state
+    const globalState = useSelector(state => state);
+    const dispatch = useDispatch();
+    // End State
 
     const columns = [
         {
@@ -134,11 +146,6 @@ const DataSiswa = () => {
 
     // end table action
 
-    // modal
-    const [visible, setVisible] = useState(false);
-    const [form, setForm] = useState([]);
-    const [formType, setFormType] = useState('');
-
     const showModalUbah = (record) => {
         let data = [{
             name: 'nama_siswa',
@@ -197,11 +204,17 @@ const DataSiswa = () => {
 
     // end modal
 
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch({ type: 'SET_NAME', value: 'DWI' })
+        }, 5000)
+    })
+
     return (
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA
+                    <i className="icon-user"></i> DATA SISWA {globalState.root.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
