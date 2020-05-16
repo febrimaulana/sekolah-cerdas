@@ -3,9 +3,11 @@ import storage from 'redux-persist/lib/storage';
 
 // Reducer
 import ReducerRoot from './root';
+import ReducerSiswa from './siswa';
 
 const reducer = {
     root: ReducerRoot,
+    siswa: ReducerSiswa
 }
 
 const configReduxPersist = {

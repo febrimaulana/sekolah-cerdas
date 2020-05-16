@@ -1,180 +1,108 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Tooltip, Space } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import TableDefault from '../../../component/molecules/Table';
-import dataForm from './dataForm';
+import { dataForm } from './data';
 import { useSelector, useDispatch } from 'react-redux';
+import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
+import { ModalConfirm } from '../../../component/atom/Notifikasi';
 
-const DataSiswa = () => {
-
+const DataSiswa = () => {    
     // State
-    // modal
-    const [visible, setVisible] = useState(false);
-    const [form, setForm] = useState([]);
-    const [formType, setFormType] = useState('');
+    const [pagination, setPagination] = useState({
+        page: 1,
+        limit: 10
+    })
 
     // global state
-    const globalState = useSelector(state => state);
+    const stateRoot = useSelector(state => state.root);
+    const stateSiswa = useSelector(state => state.siswa);
     const dispatch = useDispatch();
     // End State
 
-    const columns = [
-        {
-            title: 'Nama Siswa',
-            dataIndex: 'nama_siswa',
-            sorter: (a, b) => a.nama - b.nama
-        },
-        {
-            title: 'Tanggal Lahir',
-            dataIndex: 'tempat_lahir_siswa',
-            sorter: (a, b) => a.tgllahir - b.tgllahir
-        },
-        {
-            title: 'Alamat',
-            dataIndex: 'tanggal_lahir_siswa',
-            sorter: (a, b) => a.alamat - b.alamat
-        },
-        {
-            title: 'Jenis Kelamin',
-            dataIndex: 'jenis_kelamin_siswa',
-            sorter: (a, b) => a.alamat - b.alamat,
-            render: (a) => {
-                if (a === 'L') {
-                    return 'Laki - Laki'
-                } else {
-                    return "Perempuan"
-                }
+    // handle CRUD
+    const onCreate = (values, status) => {        
+        const date = moment(new Date(values.dateOfBirthStudent)).format('YYYY-MM-DD')
+        const dataInput = {
+            ...values,
+            dateOfBirthStudent: date
+        }
+        
+        if (status === 'tambah') {                                  
+            dispatch(addDataSiswa(dataInput));
+            dispatch(getDataSiswa({pagination: pagination}));
+        } else if (status === 'ubah') {            
+            const id = stateRoot.form[0].id;
+            const dataUbah = {
+                ...dataInput,
+                idStudent: id
             }
-        },
-        {
-            title: 'Alamat',
-            dataIndex: 'alamat_siswa',
-            sorter: (a, b) => a.alamat - b.alamat
-        },
-        {
-            title: 'Orang Tua',
-            dataIndex: 'orang_tua_siswa',
-            sorter: (a, b) => a.alamat - b.alamat
-        },
-        {
-            title: 'Akasi',
-            dataIndex: 'aksi',
-            render: (text, record) => {
-                return (
-                    <Space >
-                        <Tooltip title="Lihat Data">
-                            <Button onClick={() => console.log(record)} type="default" shape="circle" >
-                                <SearchOutlined />
-                            </Button>
-                        </Tooltip>
-                        <Tooltip title="Edit Data">
-                            <Button type="default" shape="circle" onClick={() => showModalUbah(record)} >
-                                <EditOutlined />
-                            </Button>
-                        </Tooltip>
-                        <Tooltip title="Hapus Data">
-                            <Button type="default" onClick={() => handleHapus(record)} shape="circle" >
-                                <DeleteOutlined />
-                            </Button>
-                        </Tooltip>
-                    </Space>
-                )
-            }
-        },
-    ];
-
-    const data = [
-        {
-            id_siswa: 1,
-            nama_siswa: "Ekal Hadiyatma",
-            tempat_lahir_siswa: "Depok",
-            tanggal_lahir_siswa: "08 June 1995",
-            jenis_kelamin_siswa: "L",
-            alamat_siswa: "Depok Jawa Barat",
-            orang_tua_siswa: "Syauqi",
-        },
-        {
-            id_siswa: 2,
-            nama_siswa: "Febri",
-            tempat_lahir_siswa: "jakarta",
-            tanggal_lahir_siswa: "24 February 1998",
-            jenis_kelamin_siswa: "L",
-            alamat_siswa: "Depok Jawa Barat",
-            orang_tua_siswa: "marali",
-        },
-        {
-            id_siswa: 3,
-            nama_siswa: "Dwi",
-            tempat_lahir_siswa: "Kepo",
-            tanggal_lahir_siswa: "22 February 1995",
-            jenis_kelamin_siswa: "P",
-            alamat_siswa: "Kepo",
-            orang_tua_siswa: "kepo",
-        },
-    ];
-
-    // Action CRUD
-
-    const onCreate = (values, status) => {
-        console.log('Received values of form: ', values);
-        if (status === 'tambah') {
-            // action tambah data
-            console.log('tambah data')
-            setVisible(false);
-        } else if (status === 'ubah') {
-            // action ubah data
-            console.log('ubah data')
-            setVisible(false);
+            dispatch(updateDataSiswa(dataUbah));
+            dispatch(getDataSiswa({pagination: pagination}));
         }
     };
 
-    const handleHapus = (record) => {
-        console.log(record)
+    const handleHapus = (record) => {         
+        ModalConfirm(
+            'Apa anda yakin ?',
+            'Data yang sudah dihpaus tidak bisa kembali lagi!',
+            'Hapus',
+            () => {
+                dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
+                dispatch(getDataSiswa({pagination: pagination}));                
+            }
+        )           
     }
+    // end crud handle
 
-    // end crud action
-
-    // table action
+    // handle table action
     const handleSort = (pagination, filters, sorter) => {
         console.log(sorter)
     }
 
-    const handlePagination = (current, pageSize) => {
-        console.log(current, pageSize)
+    const handlePagination = (current, pageSize) => {        
+        let data = {
+            page: current,
+            limit: pageSize
+        }
+        setPagination(data)
+        dispatch(getDataSiswa({pagination: pagination}));
     }
 
-    // end table action
+    // end handle table action
 
     const showModalUbah = (record) => {
         let data = [{
-            name: 'nama_siswa',
+            id: record.id_siswa,
+        },{
+            name: 'nameStudent',
             value: record.nama_siswa
         }, {
-            name: 'tempat_lahir_siswa',
+            name: 'placeOfBirthStudent',
             value: record.tempat_lahir_siswa
         }, {
-            name: 'tanggal_lahir_siswa',
+            name: 'dateOfBirthStudent',
             value: moment(new Date(record.tanggal_lahir_siswa))
         }, {
-            name: 'jenis_kelamin_siswa',
+            name: 'genderStudent',
             value: record.jenis_kelamin_siswa
         }, {
-            name: 'alamat_siswa',
+            name: 'addressStudent',
             value: record.alamat_siswa
         }, {
-            name: 'orang_tua_siswa',
+            name: 'parentsStudent',
             value: record.orang_tua_siswa
         },]
 
-        setForm(data);
-        setVisible(true);
-        setFormType('ubah');
+        dispatch({type: 'SET_FORM', value: data})
+        dispatch({type: 'SET_MODAL', value: true})
+        dispatch({type: 'SET_FORM_TYPE', value: 'ubah'})
     }
 
     const showModalTambah = () => {
-        setVisible(true);
-        setFormType('tambah');
+        dispatch({type: 'SET_MODAL', value: true})
+        dispatch({type: 'SET_FORM_TYPE', value: 'tambah'})
     }
 
     const closeModal = () => {
@@ -198,41 +126,121 @@ const DataSiswa = () => {
             value: ''
         },]
 
-        setForm(data);
-        setVisible(false);
+        dispatch({type: 'SET_FORM', value: data})
+        dispatch({type: 'SET_MODAL', value: false})
     }
 
     // end modal
+    
+    const dataTable = {
+        columns: [
+            {
+                title: 'Nama Siswa',
+                dataIndex: 'nama_siswa',            
+                sorter: (a, b) => a.nama - b.nama
+            },
+            {
+                title: 'Tanggal Lahir',
+                dataIndex: 'tempat_lahir_siswa',
+                responsive: ['sm'],
+                sorter: (a, b) => a.tgllahir - b.tgllahir
+            },
+            {
+                title: 'Alamat',
+                dataIndex: 'tanggal_lahir_siswa',
+                responsive: ['md'],
+                sorter: (a, b) => a.alamat - b.alamat
+            },
+            {
+                title: 'Jenis Kelamin',
+                dataIndex: 'jenis_kelamin_siswa',
+                responsive: ['md'],
+                sorter: (a, b) => a.alamat - b.alamat,
+                render: (a) => {
+                    if (a === 'L') {
+                        return 'Laki - Laki'
+                    } else {
+                        return "Perempuan"
+                    }
+                }
+            },
+            {
+                title: 'Alamat',
+                dataIndex: 'alamat_siswa',
+                responsive: ['md'],
+                sorter: (a, b) => a.alamat - b.alamat
+            },
+            {
+                title: 'Orang Tua',
+                dataIndex: 'orang_tua_siswa',
+                responsive: ['md'],
+                sorter: (a, b) => a.alamat - b.alamat
+            },
+            {
+                title: 'Akasi',
+                dataIndex: 'aksi',            
+                align: 'center',
+                render: (text, record) => {
+                    return (
+                        <Space >
+                            <Tooltip title="Lihat Data">
+                                <Button onClick={() => console.log(record)} type="default" shape="circle" >
+                                    <SearchOutlined />
+                                </Button>
+                            </Tooltip>
+                            <Tooltip title="Edit Data">
+                                <Button type="default" shape="circle" onClick={() => showModalUbah(record)} >
+                                    <EditOutlined />
+                                </Button>
+                            </Tooltip>
+                            <Tooltip title="Hapus Data">
+                                <Button type="default" onClick={() => handleHapus(record)} shape="circle" >
+                                    <DeleteOutlined />
+                                </Button>
+                            </Tooltip>
+                        </Space>
+                    )
+                }
+            },
+        ],
+        dataRow: stateSiswa.data.data,
+        idRow: 'id_siswa',
+        handleSort: handleSort,
+        loading: stateRoot.loading
+    }
+
+    const dataPagination = {
+        handlePagination: handlePagination,
+        countData: stateSiswa.data.total,
+        current: pagination.page
+    }
 
     useEffect(() => {
-        setTimeout(() => {
-            dispatch({ type: 'SET_NAME', value: 'DWI' })
-        }, 5000)
-    })
+        dispatch(getDataSiswa({pagination: pagination}));
+    }, [dispatch, pagination])    
 
     return (
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA {globalState.root.name}
+                    <i className="icon-user"></i> DATA SISWA {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
-                        closeModal={closeModal}
-                        columns={columns}
+                        closeModal={closeModal}                        
                         dataForm={dataForm}
-                        dataRow={data}
-                        form={form}
-                        formType={formType}
-                        handlePagination={handlePagination}
+                        dataTable={dataTable}
+                        dataPagination={dataPagination}
+                        form={stateRoot.form}
+                        formType={stateRoot.formType}                        
                         handleSort={handleSort}
                         onCreate={onCreate}
                         showModalTambah={showModalTambah}
                         showModalUbah={showModalUbah}
-                        visible={visible}
+                        visible={stateRoot.modal}
                     />
                 </div>
-            </div>
+            </div>            
         </div>
     )
 }

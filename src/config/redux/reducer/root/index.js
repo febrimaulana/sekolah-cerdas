@@ -1,6 +1,8 @@
 const initialStateRoot = {
     loading: false,
-    name: 'Febri Maulana Yunus'
+    modal: false,
+    form: [],
+    formType: ''
 };
 
 const ReducerRoot = (state = initialStateRoot, action) => {
@@ -10,10 +12,20 @@ const ReducerRoot = (state = initialStateRoot, action) => {
                 ...state,
                 loading: action.value
             }
-        case "SET_NAME":
+        case "SET_MODAL":
             return {
                 ...state,
-                name: action.value
+                modal: action.value
+            }
+        case "SET_FORM":
+            return {
+                ...state,
+                form: action.value
+            }
+        case "SET_FORM_TYPE":
+            return {
+                ...state,
+                formType: action.value
             }
         default:
             return state

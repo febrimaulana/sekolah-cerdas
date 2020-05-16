@@ -5,7 +5,7 @@ import { PrinterOutlined, DownloadOutlined, PlusOutlined } from '@ant-design/ico
 import FormModal from '../../../component/atom/FormDinamis';
 const { Search } = Input;
 
-const TableDefault = ({ dataForm, form, onCreate, closeModal, showModalTambah, showModalUbah, columns, dataRow, handleSort, handlePagination, formType, visible }) => {
+const TableDefault = ({ dataTable , dataForm, dataPagination, form, onCreate, closeModal, showModalTambah, showModalUbah, handlePagination, formType, visible, countdata }) => {        
     return (
         <Fragment>
             <Search
@@ -31,20 +31,21 @@ const TableDefault = ({ dataForm, form, onCreate, closeModal, showModalTambah, s
                 </Tooltip>
             </Space>
             <Table
-                columns={columns}
-                dataSource={dataRow}
-                onChange={handleSort}
+                columns={dataTable.columns}
+                dataSource={dataTable.dataRow}
+                onChange={dataTable.handleSort}
                 bordered
                 size="small"
-                rowKey="id_siswa"
+                rowKey={dataTable.idRow}
+                loading={dataTable.loading}
                 pagination={false}
             />
             <Pagination
-                defaultCurrent={1}
+                current={dataPagination.current}                
                 showSizeChanger
-                onChange={handlePagination}
-                onShowSizeChange={handlePagination}
-                total={1000}
+                onChange={dataPagination.handlePagination}
+                onShowSizeChange={dataPagination.handlePagination}
+                total={dataPagination.countData}
                 className="mt-4 float-right"
             />
             <FormModal

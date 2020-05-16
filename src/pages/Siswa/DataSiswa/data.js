@@ -1,28 +1,28 @@
-const dataForm = [
+export const dataForm = [
     {
-        name: "nama_siswa",
+        name: "nameStudent",
         label: "Nama Siswa",
         type: null,
         rules: [
             {
                 required: true,
-                message: 'Form tidak boleh kosong!',
+                message: 'Form nama tidak boleh kosong!',
             }
         ]
     },    
     {
-        name: "tempat_lahir_siswa",
+        name: "placeOfBirthStudent",
         label: "Tempat Lahir",
         type: null,
         rules: [
             {
                 required: true,
-                message: 'Form tidak boleh kosong!',
+                message: 'Form tempat lahir tidak boleh kosong!',
             }
         ]
     },
     {
-        name: "jenis_kelamin_siswa",
+        name: "genderStudent",
         label: "Jenis Kelamin",
         type: 'radio',
         radio: [{
@@ -36,40 +36,38 @@ const dataForm = [
         rules: [
             {
                 required: true,
-                message: 'Form tidak boleh kosong!',
+                message: 'Jenis kelamin belum dipilih!',
             }
         ]
     }, {
-        name: "alamat_siswa",
+        name: "addressStudent",
         label: "Alamat Siswa",
         type: 'textarea',
         rules: [
             {
                 required: true,
-                message: 'Form tidak boleh kosong!',
+                message: 'Form alamat tidak boleh kosong!',
             }
         ]
     }, {
-        name: "orang_tua_siswa",
+        name: "parentsStudent",
         label: "Orang Tua Siswa",
         type: null,
         rules: [
             {
                 required: true,
-                message: 'Form tidak boleh kosong!',
+                message: 'Form orang tua tidak boleh kosong!',
             }
         ]
     }, {
-        name: "tanggal_lahir_siswa",
+        name: "dateOfBirthStudent",
         label: "Tanggal Lahir",
         type: 'date',
         rules: [
             {
                 required: true,
-                message: 'Form tidak boleh kosong!',
+                message: 'Tanggal lahir belum dipilih!',
             }
         ]
     },
 ]
-
-export default dataForm;

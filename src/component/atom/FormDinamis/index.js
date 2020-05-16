@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Form, Input, Radio, Col, Checkbox, Row, Select, DatePicker, Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+const { TextArea } = Input;
 
 const FormModal = ({ visible, onCreate, onCancel, formType, dataForm, fields }) => {
     const [form] = Form.useForm();
@@ -44,7 +45,7 @@ const FormModal = ({ visible, onCreate, onCancel, formType, dataForm, fields }) 
                                             {
                                                 item.radio.map((radio, key) => {
                                                     return (
-                                                        <Radio.Button key={key} value={radio.value}>{radio.name}</Radio.Button>
+                                                        <Radio key={key} value={radio.value}>{radio.name}</Radio>
                                                     )
                                                 })
                                             }
@@ -88,7 +89,9 @@ const FormModal = ({ visible, onCreate, onCancel, formType, dataForm, fields }) 
                                             }
                                         </Select>
                                     ) : item.type === 'date' ? (
-                                        <DatePicker />
+                                        <DatePicker placeholder="Pilih Tanggal" style={{width: '100%'}} />
+                                    ) : item.type === 'textarea' ? (
+                                        <TextArea rows={3} />
                                     ) : item.type === 'upload' ? (
                                         <Upload name="upload" action="/upload.do" listType="picture">
                                             <Button>
@@ -96,8 +99,8 @@ const FormModal = ({ visible, onCreate, onCancel, formType, dataForm, fields }) 
                                             </Button>
                                         </Upload>
                                     ) : (
-                                                                    <Input type={item.type} />
-                                                                )
+                                        <Input type={item.type} />
+                                    )
                                 }
                             </Form.Item>
                         )
