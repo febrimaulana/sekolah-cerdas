@@ -8,6 +8,7 @@
   
 
 - Node Js -> [https://nodejs.org/en/](https://nodejs.org/en/)
+
 - editor (VS Code, Notepad++, dll) -> [https://code.visualstudio.com/](https://code.visualstudio.com/)
 - git -> [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
@@ -19,15 +20,11 @@ jalankan perintah berikut di cmd pada folder yang di inginkan
 
   
 
-git clone https://github.com/febrimaulana/sekolah-cerdas.git sekolah-cerdas
-
-cd sekolah-cerdas
-
-npm install
-
-npm start
-
-buka browser http://localhost:3000/
+    git clone https://github.com/febrimaulana/sekolah-cerdas.git sekolah-cerdas
+    cd sekolah-cerdas
+    npm install
+    npm start
+    buka browser http://localhost:3000/
 
   
 
