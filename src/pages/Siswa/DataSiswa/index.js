@@ -50,7 +50,7 @@ const DataSiswa = () => {
             'Hapus',
             () => {
                 dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
-                dispatch(getDataSiswa({pagination: pagination}));                
+                dispatch(getDataSiswa({pagination: pagination}));
             }
         )           
     }
@@ -140,13 +140,13 @@ const DataSiswa = () => {
                 sorter: (a, b) => a.nama - b.nama
             },
             {
-                title: 'Tanggal Lahir',
+                title: 'Tempat Lahir',
                 dataIndex: 'tempat_lahir_siswa',
                 responsive: ['sm'],
                 sorter: (a, b) => a.tgllahir - b.tgllahir
             },
             {
-                title: 'Alamat',
+                title: 'Tanggal Lahir',
                 dataIndex: 'tanggal_lahir_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
@@ -217,6 +217,9 @@ const DataSiswa = () => {
 
     useEffect(() => {
         dispatch(getDataSiswa({pagination: pagination}));
+        return () => {
+            dispatch(getDataSiswa({pagination: pagination}));
+        }
     }, [dispatch, pagination])    
 
     return (
