@@ -22,7 +22,7 @@ const DataSiswa = () => {
     // End State
 
     // handle CRUD
-    const onCreate = (values, status) => {        
+    const onCreate =  async (values, status) => {        
         const date = moment(new Date(values.dateOfBirthStudent)).format('YYYY-MM-DD')
         const dataInput = {
             ...values,
@@ -30,7 +30,7 @@ const DataSiswa = () => {
         }
         
         if (status === 'tambah') {                                  
-            dispatch(addDataSiswa(dataInput));
+            await dispatch(addDataSiswa(dataInput));
             dispatch(getDataSiswa({pagination: pagination}));
         } else if (status === 'ubah') {            
             const id = stateRoot.form[0].id;
@@ -38,7 +38,7 @@ const DataSiswa = () => {
                 ...dataInput,
                 idStudent: id
             }
-            dispatch(updateDataSiswa(dataUbah));
+            await dispatch(updateDataSiswa(dataUbah));
             dispatch(getDataSiswa({pagination: pagination}));
         }
     };
@@ -48,8 +48,8 @@ const DataSiswa = () => {
             'Apa anda yakin ?',
             'Data yang sudah dihpaus tidak bisa kembali lagi!',
             'Hapus',
-            () => {
-                dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
+            async () => {
+                await dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
                 dispatch(getDataSiswa({pagination: pagination}));
             }
         )           
