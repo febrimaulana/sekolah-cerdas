@@ -107,22 +107,22 @@ const DataSiswa = () => {
 
     const closeModal = () => {
         let data = [{
-            name: 'nama_siswa',
+            name: 'nameStudent',
             value: ''
         }, {
-            name: 'tempat_lahir_siswa',
+            name: 'placeOfBirthStudent',
             value: ''
         }, {
-            name: 'tanggal_lahir_siswa',
+            name: 'dateOfBirthStudent',
             value: moment(new Date())
         }, {
-            name: 'jenis_kelamin_siswa',
+            name: 'genderStudent',
             value: ''
         }, {
-            name: 'alamat_siswa',
+            name: 'addressStudent',
             value: ''
         }, {
-            name: 'orang_tua_siswa',
+            name: 'parentsStudent',
             value: ''
         },]
 
