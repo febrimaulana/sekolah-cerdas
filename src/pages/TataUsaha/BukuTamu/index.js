@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
 
-const DataSiswa = () => {    
+const BukuTamu = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -135,24 +135,24 @@ const DataSiswa = () => {
     const dataTable = {
         columns: [
             {
-                title: 'Nama Siswa',
+                title: 'Tujuan',
                 dataIndex: 'nama_siswa',            
                 sorter: (a, b) => a.nama - b.nama
             },
             {
-                title: 'Tempat Lahir',
+                title: 'Nama Pengunjung',
                 dataIndex: 'tempat_lahir_siswa',
                 responsive: ['sm'],
                 sorter: (a, b) => a.tgllahir - b.tgllahir
             },
             {
-                title: 'Tanggal Lahir',
+                title: 'Nomor Telpon',
                 dataIndex: 'tanggal_lahir_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
             },
             {
-                title: 'Jenis Kelamin',
+                title: 'Tanggal',
                 dataIndex: 'jenis_kelamin_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat,
@@ -165,13 +165,13 @@ const DataSiswa = () => {
                 }
             },
             {
-                title: 'Alamat',
+                title: 'Masuk',
                 dataIndex: 'alamat_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
             },
             {
-                title: 'Orang Tua',
+                title: 'Keluar',
                 dataIndex: 'orang_tua_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
@@ -226,7 +226,7 @@ const DataSiswa = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA {stateRoot.name}
+                    <i className="icon-user"></i> BUKU TAMU {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
@@ -248,4 +248,4 @@ const DataSiswa = () => {
     )
 }
 
-export default DataSiswa;
+export default BukuTamu;

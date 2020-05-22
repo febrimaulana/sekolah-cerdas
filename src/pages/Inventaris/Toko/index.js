@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
 
-const DataSiswa = () => {    
+const Toko = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -135,44 +135,19 @@ const DataSiswa = () => {
     const dataTable = {
         columns: [
             {
-                title: 'Nama Siswa',
+                title: 'Nama Toko',
                 dataIndex: 'nama_siswa',            
                 sorter: (a, b) => a.nama - b.nama
             },
             {
-                title: 'Tempat Lahir',
+                title: 'Telepon',
                 dataIndex: 'tempat_lahir_siswa',
                 responsive: ['sm'],
                 sorter: (a, b) => a.tgllahir - b.tgllahir
             },
             {
-                title: 'Tanggal Lahir',
-                dataIndex: 'tanggal_lahir_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
-            },
-            {
-                title: 'Jenis Kelamin',
-                dataIndex: 'jenis_kelamin_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat,
-                render: (a) => {
-                    if (a === 'L') {
-                        return 'Laki - Laki'
-                    } else {
-                        return "Perempuan"
-                    }
-                }
-            },
-            {
                 title: 'Alamat',
-                dataIndex: 'alamat_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
-            },
-            {
-                title: 'Orang Tua',
-                dataIndex: 'orang_tua_siswa',
+                dataIndex: 'tanggal_lahir_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
             },
@@ -226,7 +201,7 @@ const DataSiswa = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA {stateRoot.name}
+                    <i className="icon-user"></i> BUKU TAMU {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
@@ -248,4 +223,4 @@ const DataSiswa = () => {
     )
 }
 
-export default DataSiswa;
+export default Toko;

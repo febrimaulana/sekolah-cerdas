@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, Tooltip, Space } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import TableDefault from '../../../component/molecules/Table';
+import TableDefault from '../../../../component/molecules/Table';
 import { dataForm } from './data';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
-import { ModalConfirm } from '../../../component/atom/Notifikasi';
+import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../../config/redux/action/siswa';
+import { ModalConfirm } from '../../../../component/atom/Notifikasi';
 
-const DataSiswa = () => {    
+const TipeKeluhan = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -135,46 +135,9 @@ const DataSiswa = () => {
     const dataTable = {
         columns: [
             {
-                title: 'Nama Siswa',
+                title: 'Tipe Keluhan',
                 dataIndex: 'nama_siswa',            
                 sorter: (a, b) => a.nama - b.nama
-            },
-            {
-                title: 'Tempat Lahir',
-                dataIndex: 'tempat_lahir_siswa',
-                responsive: ['sm'],
-                sorter: (a, b) => a.tgllahir - b.tgllahir
-            },
-            {
-                title: 'Tanggal Lahir',
-                dataIndex: 'tanggal_lahir_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
-            },
-            {
-                title: 'Jenis Kelamin',
-                dataIndex: 'jenis_kelamin_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat,
-                render: (a) => {
-                    if (a === 'L') {
-                        return 'Laki - Laki'
-                    } else {
-                        return "Perempuan"
-                    }
-                }
-            },
-            {
-                title: 'Alamat',
-                dataIndex: 'alamat_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
-            },
-            {
-                title: 'Orang Tua',
-                dataIndex: 'orang_tua_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
             },
             {
                 title: 'Aksi',
@@ -226,7 +189,7 @@ const DataSiswa = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA {stateRoot.name}
+                    <i className="icon-user"></i> KELUHAN {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
@@ -248,4 +211,4 @@ const DataSiswa = () => {
     )
 }
 
-export default DataSiswa;
+export default TipeKeluhan;
