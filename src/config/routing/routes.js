@@ -1,12 +1,13 @@
 import Dashboard from '../../pages/Dashboard';
 
 // Siswa import
-import { DataSiswa } from '../../pages/Siswa';
+import { DataSiswa, Form } from '../../pages/Siswa';
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', exact: true, name: 'Dashboard', component: Dashboard },
-  { path: '/siswa/data/', name: 'Dashboard', component: DataSiswa },
+  { path: '/', exact: true },
+  { path: '/dashboard', exact: true, component: Dashboard },
+  { path: '/siswa/data/', exact: true, component: DataSiswa },
+  { path: '/siswa/data/tambah', exact: true, component: Form },
 ];
 
 export default routes;
