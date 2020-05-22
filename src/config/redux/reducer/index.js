@@ -7,13 +7,26 @@ import ReducerSiswa from './siswa';
 import ReducerSubClass from './subclass';
 import ReducerOnchangeclass from './onchangeclass';
 import ReducerOnchangesubclass from './onchangesubclass';
+import ReducerPendapatan from './Pendapatan';
+import ReducerPengeluaran from './Pengeluaran';
+import ReducerUjian from './Ujian';
+import ReducerPerpustakaan from './Perpustakaan';
+import ReducerSumberDayaManusia from './SumberDayaManusia';
+import ReducerDaftarBiaya from './DaftarBiaya';
 
 const reducer = {
     root: ReducerRoot,
     siswa: ReducerSiswa,
+
     subclass:ReducerSubClass,
     onchangeclass:ReducerOnchangeclass,
     onchangesubclass:ReducerOnchangesubclass
+    pendapatan: ReducerPendapatan,
+    pengeluaran: ReducerPengeluaran,
+    ujian: ReducerUjian,
+    perpustakaan: ReducerPerpustakaan,
+    sumberdayamanusia: ReducerSumberDayaManusia,
+    daftarbiaya: ReducerDaftarBiaya,
 }
 
 const configReduxPersist = {
