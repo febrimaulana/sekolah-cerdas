@@ -136,30 +136,30 @@ const DataSiswa = () => {
         columns: [
             {
                 title: 'Nama Siswa',
-                dataIndex: 'nama_siswa',            
-                sorter: (a, b) => a.nama - b.nama
+                dataIndex: 'nama_siswa',
+                sorter: (a, b) => a.nama_siswa.length - b.nama_siswa.length,                
             },
             {
                 title: 'Tempat Lahir',
                 dataIndex: 'tempat_lahir_siswa',
                 responsive: ['sm'],
-                sorter: (a, b) => a.tgllahir - b.tgllahir
+                sorter: (a, b) => a.tempat_lahir_siswa.length - b.tempat_lahir_siswa.length
             },
             {
                 title: 'Tanggal Lahir',
                 dataIndex: 'tanggal_lahir_siswa',
                 responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
+                sorter: (a, b) => a.tanggal_lahir_siswa.length - b.tanggal_lahir_siswa.length
             },
             {
                 title: 'Jenis Kelamin',
                 dataIndex: 'jenis_kelamin_siswa',
                 responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat,
+                sorter: (a, b) => a.jenis_kelamin_siswa.length - b.jenis_kelamin_siswa.length,
                 render: (a) => {
                     if (a === 'L') {
                         return 'Laki - Laki'
-                    } else {
+                    } else if (a === 'P') {
                         return "Perempuan"
                     }
                 }
@@ -168,13 +168,13 @@ const DataSiswa = () => {
                 title: 'Alamat',
                 dataIndex: 'alamat_siswa',
                 responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
+                sorter: (a, b) => a.alamat_siswa.length - b.alamat_siswa.length,
             },
             {
                 title: 'Orang Tua',
                 dataIndex: 'orang_tua_siswa',
                 responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
+                sorter: (a, b) => a.orang_tua_siswa.length - b.orang_tua_siswa.length,
             },
             {
                 title: 'Aksi',
