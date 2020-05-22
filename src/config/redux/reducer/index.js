@@ -18,9 +18,9 @@ const reducer = {
     root: ReducerRoot,
     siswa: ReducerSiswa,
 
-    subclass:ReducerSubClass,
-    onchangeclass:ReducerOnchangeclass,
-    onchangesubclass:ReducerOnchangesubclass
+    subclass: ReducerSubClass,
+    onchangeclass: ReducerOnchangeclass,
+    onchangesubclass: ReducerOnchangesubclass,
     pendapatan: ReducerPendapatan,
     pengeluaran: ReducerPengeluaran,
     ujian: ReducerUjian,
