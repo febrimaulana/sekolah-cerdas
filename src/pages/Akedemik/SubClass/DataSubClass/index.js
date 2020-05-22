@@ -1,26 +1,99 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Tooltip, Space } from 'antd';
+import { Button, Tooltip, Space, Select  } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import TableDefault from '../../../component/molecules/Table';
+import TableDefault from '../../../../component/molecules/Table';
 import { dataForm } from './data';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
-import { ModalConfirm } from '../../../component/atom/Notifikasi';
+import { getDataSubclass, addDataSubclass, deleteDataSubclass, updateDataSiswa ,getselectSubclass} from '../../../../config/redux/action/subclass';
+import { ModalConfirm } from '../../../../component/atom/Notifikasi';
 
-const DataSiswa = () => {    
+const DataSubClass = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 10
     })
+    
+    const subclass1= useState({
+        1: 'A',
+        2: "B"
+    })
 
+    // function to select
+    const { Option } = Select;
+
+    let classSelect = {1: 'Kelas 1', 2: 'Kelas 2'};
+
+
+    function onBlur(event) {
+        console.log('blur');
+    }
+
+    
+    function onFocus() {
+        console.log('focus');
+      }
+
+      function onSearch(val) {
+        console.log('search:', val);
+        
+      }
+      
+      function onChange(value) {
+        console.log(`selected ${value}`);
+        dispatch(getDataSubclass({idsubclass: value}));
+        
+      }
+
+    // ====================
+   
     // global state
     const stateRoot = useSelector(state => state.root);
-    const stateSiswa = useSelector(state => state.siswa);
+    const stateSiswa = useSelector(state => state.subclass);
+    const statelistsubclass = useSelector(state => state.onchangeclass);
+    console.log("statelistsubclassgfgfdg");
+    console.log(statelistsubclass);
+    console.log("stateSiswa");
+    console.log(stateSiswa);
+    
+    const dummysubclas=[
+        {
+            "id": 1,
+            "section": "A",
+            "is_active": "no",
+            "created_at": "2019-07-08T06:16:30.000Z",
+            "updated_at": "0000-00-00 00:00:00"
+        },
+        {
+            "id": 2,
+            "section": "B",
+            "is_active": "no",
+            "created_at": "2019-07-08T06:16:33.000Z",
+            "updated_at": "0000-00-00 00:00:00"
+        },
+        {
+            "id": 3,
+            "section": "C",
+            "is_active": "no",
+            "created_at": "2019-07-08T06:16:36.000Z",
+            "updated_at": "0000-00-00 00:00:00"
+        },
+        {
+            "id": 4,
+            "section": "D",
+            "is_active": "no",
+            "created_at": "2019-07-08T06:16:39.000Z",
+            "updated_at": "0000-00-00 00:00:00"
+        }
+    ];
+    console.log(stateSiswa);
+    console.log("Dummy");
+    console.log(dummysubclas);
     const dispatch = useDispatch();
     // End State
-  
+
+    // handle CRUD
     const onCreate =  async (values, status) => {        
         const date = moment(new Date(values.dateOfBirthStudent)).format('YYYY-MM-DD')
         const dataInput = {
@@ -29,16 +102,16 @@ const DataSiswa = () => {
         }
         
         if (status === 'tambah') {                                  
-            await dispatch(addDataSiswa(dataInput));
-            dispatch(getDataSiswa({pagination: pagination}));
+            await dispatch(addDataSubclass(dataInput));
+            dispatch(addDataSubclass({pagination: pagination}));
         } else if (status === 'ubah') {            
             const id = stateRoot.form[0].id;
             const dataUbah = {
                 ...dataInput,
-                idStudent: id
+                idSubClass: id
             }
             await dispatch(updateDataSiswa(dataUbah));
-            dispatch(getDataSiswa({pagination: pagination}));
+            dispatch(getDataSubclass({pagination: pagination}));
         }
     };
 
@@ -48,8 +121,8 @@ const DataSiswa = () => {
             'Data yang sudah dihpaus tidak bisa kembali lagi!',
             'Hapus',
             async () => {
-                await dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
-                dispatch(getDataSiswa({pagination: pagination}));
+                await dispatch(deleteDataSubclass({idStudent: record.id_siswa}));
+                dispatch(getDataSubclass({pagination: pagination}));
             }
         )           
     }
@@ -66,32 +139,17 @@ const DataSiswa = () => {
             limit: pageSize
         }
         setPagination(data)
-        dispatch(getDataSiswa({pagination: pagination}));
+        dispatch(getDataSubclass({pagination: pagination}));
     }
 
     // end handle table action
 
     const showModalUbah = (record) => {
         let data = [{
-            id: record.id_siswa,
+            iidSubClassd: record.id,
         },{
-            name: 'nameStudent',
-            value: record.nama_siswa
-        }, {
-            name: 'placeOfBirthStudent',
-            value: record.tempat_lahir_siswa
-        }, {
-            name: 'dateOfBirthStudent',
-            value: moment(new Date(record.tanggal_lahir_siswa))
-        }, {
-            name: 'genderStudent',
-            value: record.jenis_kelamin_siswa
-        }, {
-            name: 'addressStudent',
-            value: record.alamat_siswa
-        }, {
-            name: 'parentsStudent',
-            value: record.orang_tua_siswa
+            name: 'section',
+            value: record.section
         },]
 
         dispatch({type: 'SET_FORM', value: data})
@@ -106,24 +164,9 @@ const DataSiswa = () => {
 
     const closeModal = () => {
         let data = [{
-            name: 'nameStudent',
+            name: 'section',
             value: ''
-        }, {
-            name: 'placeOfBirthStudent',
-            value: ''
-        }, {
-            name: 'dateOfBirthStudent',
-            value: moment(new Date())
-        }, {
-            name: 'genderStudent',
-            value: ''
-        }, {
-            name: 'addressStudent',
-            value: ''
-        }, {
-            name: 'parentsStudent',
-            value: ''
-        },]
+        }, ]
 
         dispatch({type: 'SET_FORM', value: data})
         dispatch({type: 'SET_MODAL', value: false})
@@ -134,46 +177,9 @@ const DataSiswa = () => {
     const dataTable = {
         columns: [
             {
-                title: 'Nama Siswa',
-                dataIndex: 'nama_siswa',            
-                sorter: (a, b) => a.nama - b.nama
-            },
-            {
-                title: 'Tempat Lahir',
-                dataIndex: 'tempat_lahir_siswa',
-                responsive: ['sm'],
-                sorter: (a, b) => a.tgllahir - b.tgllahir
-            },
-            {
-                title: 'Tanggal Lahir',
-                dataIndex: 'tanggal_lahir_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
-            },
-            {
-                title: 'Jenis Kelamin',
-                dataIndex: 'jenis_kelamin_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat,
-                render: (a) => {
-                    if (a === 'L') {
-                        return 'Laki - Laki'
-                    } else {
-                        return "Perempuan"
-                    }
-                }
-            },
-            {
-                title: 'Alamat',
-                dataIndex: 'alamat_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
-            },
-            {
-                title: 'Orang Tua',
-                dataIndex: 'orang_tua_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat - b.alamat
+                title: 'Sub Class',
+                dataIndex: 'section',            
+                sorter: (a, b) => a.section - b.section
             },
             {
                 title: 'Akasi',
@@ -202,8 +208,9 @@ const DataSiswa = () => {
                 }
             },
         ],
-        dataRow: stateSiswa.data.data,
-        idRow: 'id_siswa',
+        //dataRow: stateSiswa.data.data,
+        dataRow: dummysubclas,
+        idRow: 'id',
         handleSort: handleSort,
         loading: stateRoot.loading
     }
@@ -215,9 +222,10 @@ const DataSiswa = () => {
     }
 
     useEffect(() => {
-        dispatch(getDataSiswa({pagination: pagination}));
+        dispatch(getDataSubclass({pagination: pagination}));
+        dispatch(getselectSubclass({pagination: pagination}));
         return () => {
-            dispatch(getDataSiswa({pagination: pagination}));
+            dispatch(getDataSubclass({pagination: pagination}));
         }
     }, [dispatch, pagination])    
 
@@ -228,6 +236,38 @@ const DataSiswa = () => {
                     <i className="icon-user"></i> DATA SISWA {stateRoot.name}
                 </div>
                 <div className="card-body">
+                <Select
+                    showSearch
+                    style={{ width: 500 }}
+                    placeholder="Select a person"
+                    optionFilterProp="children"
+                    onChange={onChange}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    onSearch={onSearch}
+                    filterOption={(input, option) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                >
+
+                    { Object.entries(classSelect).map((v,k) => <option key={k} value={v[0]}>{v[1]}</option>) }   
+                </Select>
+                <Select
+                    showSearch
+                    style={{ width: 500 }}
+                    placeholder="Select a person"
+                    optionFilterProp="children"
+                   
+                    filterOption={(input, option) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                >
+
+                    { Object.entries(statelistsubclass.data).map((v,k) => <option key={k} value={v[0]}>{v[1]}</option>) }   
+                </Select>
+                </div>
+                <div className="card-body">
+                    
                     <TableDefault
                         closeModal={closeModal}                        
                         dataForm={dataForm}
@@ -247,4 +287,4 @@ const DataSiswa = () => {
     )
 }
 
-export default DataSiswa;
+export default DataSubClass;

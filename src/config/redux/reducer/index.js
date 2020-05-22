@@ -4,10 +4,16 @@ import storage from 'redux-persist/lib/storage';
 // Reducer
 import ReducerRoot from './root';
 import ReducerSiswa from './siswa';
+import ReducerSubClass from './subclass';
+import ReducerOnchangeclass from './onchangeclass';
+import ReducerOnchangesubclass from './onchangesubclass';
 
 const reducer = {
     root: ReducerRoot,
-    siswa: ReducerSiswa
+    siswa: ReducerSiswa,
+    subclass:ReducerSubClass,
+    onchangeclass:ReducerOnchangeclass,
+    onchangesubclass:ReducerOnchangesubclass
 }
 
 const configReduxPersist = {
