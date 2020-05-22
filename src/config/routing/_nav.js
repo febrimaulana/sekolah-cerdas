@@ -279,5 +279,22 @@ export default {
         },
       ],
     },
+    {
+      name: 'Akademik',
+      url: '/Akademi',
+      icon: 'icon-puzzle',
+      children: [
+        {
+          name: 'Jadwal Kelas',
+          url: '/akademik/jadwalkelas',
+          icon: 'icon-puzzle',
+        },
+        {
+          name: 'Sub Class',
+          url: '/akademik/subclass',
+          icon: 'icon-puzzle',
+        }
+      ],
+    },
   ],
 };
