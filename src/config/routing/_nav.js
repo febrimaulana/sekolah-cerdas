@@ -12,44 +12,39 @@ export default {
     {
       name: 'Tata Usaha',
       url: '/tatausaha',
-      icon: 'icon-puzzle',
+      icon: 'icon-home',
       children: [
         {
           name: 'Buku Tamu',
           url: '/tatausaha/bukutamu',
-          icon: 'icon-puzzle',
+          icon: 'icon-note',
         },
         {
           name: 'Log Panggilan',
-          url: '/tatausaha/logpanggilan',
-          icon: 'icon-puzzle',
+          url: '/tatausaha/LogPanggilan',
+          icon: 'icon-call-in',
         },
         {
-          name: 'Pengiriman Barang',
-          url: '/tatausaha/pengirimanbarang',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Penerimaan Barang',
-          url: '/tatausaha/penerimaanbarang',
-          icon: 'icon-puzzle',
+          name: 'Surat Menyurat',
+          url: '/tatausaha/surat',
+          icon: 'icon-envelope',
         },
         {
           name: 'Keluhan',
           url: '/tatausaha/keluhan',
-          icon: 'icon-puzzle',
+          icon: 'icon-bubbles',
         },
         {
           name: 'Pengaturan',
           url: '/tatausaha/pengaturan',
-          icon: 'icon-puzzle',
+          icon: 'icon-settings',
         },
       ],
     },
     {
       name: 'Informasi Siswa',
       url: '/siswa',
-      icon: 'icon-puzzle',
+      icon: 'icon-people',
       children: [
         {
           name: 'Detail Siswa',
@@ -217,6 +212,70 @@ export default {
           name: 'Penugasan',
           url: '/sdm/penugasan/',
           icon: 'icon-puzzle',
+        },
+      ],
+    },
+    {
+      name: 'Inventaris',
+      url: '/inventaris',
+      icon: 'icon-layers',
+      children: [
+        {
+          name: 'Daftar Inventaris',
+          url: '/inventaris/DaftarInventaris',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Jenis Barang',
+          url: '/inventaris/Jenis',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Kategori Barang',
+          url: '/inventaris/Kategori',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Toko',
+          url: '/inventaris/Toko',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Suplier',
+          url: '/inventaris/Suplier',
+          icon: 'icon-arrow-right-circle',
+        },
+      ],
+    },
+    {
+      name: 'Pusat Unduhan',
+      url: '/unduhan',
+      icon: 'icon-cloud-download',
+      children: [
+        {
+          name: 'Unggah Konten',
+          url: '/unduhan/Unggah',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Tugas',
+          url: '/unduhan/Tugas',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Bahan Ajar',
+          url: '/unduhan/BahanAjar',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Silabus',
+          url: '/unduhan/Silabus',
+          icon: 'icon-arrow-right-circle',
+        },
+        {
+          name: 'Unggahan Lainnya',
+          url: '/unduhan/UnggahLain',
+          icon: 'icon-arrow-right-circle',
         },
       ],
     },

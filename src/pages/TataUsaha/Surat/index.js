@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
 
-const DataSiswa = () => {    
+const Surat = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -22,7 +22,7 @@ const DataSiswa = () => {
     // End State
 
     // handle CRUD
-    const onCreate =  async (values, status) => {        
+    const onCreate = (values, status) => {        
         const date = moment(new Date(values.dateOfBirthStudent)).format('YYYY-MM-DD')
         const dataInput = {
             ...values,
@@ -30,7 +30,7 @@ const DataSiswa = () => {
         }
         
         if (status === 'tambah') {                                  
-            await dispatch(addDataSiswa(dataInput));
+            dispatch(addDataSiswa(dataInput));
             dispatch(getDataSiswa({pagination: pagination}));
         } else if (status === 'ubah') {            
             const id = stateRoot.form[0].id;
@@ -38,7 +38,7 @@ const DataSiswa = () => {
                 ...dataInput,
                 idStudent: id
             }
-            await dispatch(updateDataSiswa(dataUbah));
+            dispatch(updateDataSiswa(dataUbah));
             dispatch(getDataSiswa({pagination: pagination}));
         }
     };
@@ -48,8 +48,8 @@ const DataSiswa = () => {
             'Apa anda yakin ?',
             'Data yang sudah dihpaus tidak bisa kembali lagi!',
             'Hapus',
-            async () => {
-                await dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
+            () => {
+                dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
                 dispatch(getDataSiswa({pagination: pagination}));
             }
         )           
@@ -107,22 +107,22 @@ const DataSiswa = () => {
 
     const closeModal = () => {
         let data = [{
-            name: 'nameStudent',
+            name: 'nama_siswa',
             value: ''
         }, {
-            name: 'placeOfBirthStudent',
+            name: 'tempat_lahir_siswa',
             value: ''
         }, {
-            name: 'dateOfBirthStudent',
+            name: 'tanggal_lahir_siswa',
             value: moment(new Date())
         }, {
-            name: 'genderStudent',
+            name: 'jenis_kelamin_siswa',
             value: ''
         }, {
-            name: 'addressStudent',
+            name: 'alamat_siswa',
             value: ''
         }, {
-            name: 'parentsStudent',
+            name: 'orang_tua_siswa',
             value: ''
         },]
 
@@ -135,24 +135,24 @@ const DataSiswa = () => {
     const dataTable = {
         columns: [
             {
-                title: 'Nama Siswa',
+                title: 'Nomor Surat',
                 dataIndex: 'nama_siswa',            
                 sorter: (a, b) => a.nama - b.nama
             },
             {
-                title: 'Tempat Lahir',
+                title: 'Tanggal',
                 dataIndex: 'tempat_lahir_siswa',
                 responsive: ['sm'],
                 sorter: (a, b) => a.tgllahir - b.tgllahir
             },
             {
-                title: 'Tanggal Lahir',
+                title: 'Perihal',
                 dataIndex: 'tanggal_lahir_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
             },
             {
-                title: 'Jenis Kelamin',
+                title: 'Pengirim',
                 dataIndex: 'jenis_kelamin_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat,
@@ -165,13 +165,13 @@ const DataSiswa = () => {
                 }
             },
             {
-                title: 'Alamat',
+                title: 'Penerima',
                 dataIndex: 'alamat_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
             },
             {
-                title: 'Orang Tua',
+                title: 'Tipe Surat',
                 dataIndex: 'orang_tua_siswa',
                 responsive: ['md'],
                 sorter: (a, b) => a.alamat - b.alamat
@@ -226,7 +226,7 @@ const DataSiswa = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA {stateRoot.name}
+                    <i className="icon-user"></i> SURAT {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
@@ -248,4 +248,4 @@ const DataSiswa = () => {
     )
 }
 
-export default DataSiswa;
+export default Surat;
