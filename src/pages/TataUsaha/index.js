@@ -1,5 +1,5 @@
 import BukuTamu from './BukuTamu';
-import LogPanggilan from './logPanggilan';
+import LogPanggilan from './LogPanggilan';
 import Surat from './Surat';
 import Keluhan from './Keluhan';
 import Pengaturan from './Pengaturan';
