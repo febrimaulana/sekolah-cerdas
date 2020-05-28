@@ -14,6 +14,9 @@ import { Suplier } from '../../pages/Inventaris';
 import { Toko } from '../../pages/Inventaris';
 import { Unggah } from '../../pages/Unduhan';
 import { BahanAjar } from '../../pages/Unduhan';
+import { Silabus } from '../../pages/Unduhan';
+import { Tugas } from '../../pages/Unduhan';
+import { UnggahanLain } from '../../pages/Unduhan';
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -31,6 +34,9 @@ const routes = [
   { path: '/Inventaris/Toko/', name: 'Dashboard', component: Toko },
   { path: '/Unduhan/Unggah/', name: 'Dashboard', component: Unggah },
   { path: '/Unduhan/BahanAjar/', name: 'Dashboard', component: BahanAjar },
+  { path: '/Unduhan/Silabus/', name: 'Dashboard', component: Silabus },
+  { path: '/Unduhan/Tugas/', name: 'Dashboard', component: Tugas },
+  { path: '/Unduhan/UnggahanLain/', name: 'Dashboard', component: UnggahanLain },
 ];
 
 export default routes;

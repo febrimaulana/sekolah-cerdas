@@ -220,7 +220,7 @@ const BahanAjar = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> BUKU TAMU {stateRoot.name}
+                    <i className="icon-user"></i> BAHAN AJAR {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
@@ -231,6 +231,9 @@ const BahanAjar = () => {
                         form={stateRoot.form}
                         formType={stateRoot.formType}                        
                         handleSort={handleSort}
+                        onCreate={onCreate}
+                        showModalTambah={showModalTambah}
+                        showModalUbah={showModalUbah}
                         visible={stateRoot.modal}
                     />
                 </div>

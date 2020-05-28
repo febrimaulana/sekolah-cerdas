@@ -112,7 +112,7 @@ export default {
         },
         {
           name: 'Unggahan Lainnya',
-          url: '/unduhan/UnggahLain',
+          url: '/unduhan/UnggahanLain',
           icon: 'icon-arrow-right-circle',
         },
       ],

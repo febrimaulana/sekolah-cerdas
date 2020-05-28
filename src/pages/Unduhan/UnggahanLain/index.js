@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
 
-const Unggah = () => {    
+const UnggahanLain = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -242,4 +242,4 @@ const Unggah = () => {
     )
 }
 
-export default Unggah;
+export default UnggahanLain;

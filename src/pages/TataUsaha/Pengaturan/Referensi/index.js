@@ -189,7 +189,7 @@ const SumberReferensi = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> BUKU TAMU {stateRoot.name}
+                    <i className="icon-user"></i> REFERENSI {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault

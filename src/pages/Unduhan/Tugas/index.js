@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
 
-const Unggah = () => {    
+const Tugas = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -220,7 +220,7 @@ const Unggah = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> BUKU TAMU {stateRoot.name}
+                    <i className="icon-user"></i> TUGAS {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
@@ -242,4 +242,4 @@ const Unggah = () => {
     )
 }
 
-export default Unggah;
+export default Tugas;
