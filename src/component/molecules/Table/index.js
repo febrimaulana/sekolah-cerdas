@@ -12,28 +12,28 @@ const { Search } = Input;
 
 class TablePrint extends React.Component {
 
-    render(){
+    render() {
 
-        let data  = this.props.dataTable;
+        let data = this.props.dataTable;
         let columns = data.columns;
         let row = data.dataRow;
-        columns.pop();        
+        columns.pop();
 
         return (
             <PrintTemplate>
                 <div className="container-fluid">
-                    <div className="row mb-5">                    
+                    <div className="row mb-5">
                         <img src="http://demo.sekolahcerdas.id/backend/images/s_logo.png" alt="print-logo" />
                     </div>
                     <div className="row">
-                    <Table
-                        columns={columns}
-                        dataSource={row}                        
-                        bordered
-                        size="small"
-                        rowKey={data.idRow}                        
-                        pagination={false}
-                    />
+                        <Table
+                            columns={columns}
+                            dataSource={row}
+                            bordered
+                            size="small"
+                            rowKey={data.idRow}
+                            pagination={false}
+                        />
                     </div>
                 </div>
             </PrintTemplate>
@@ -41,13 +41,13 @@ class TablePrint extends React.Component {
     }
 }
 
-const TableDefault = ({ dataTable , dataForm, dataPagination, form, onCreate, closeModal, showModalTambah, formType, visible }) => {    
+const TableDefault = ({ dataTable, dataForm, dataPagination, form, onCreate, closeModal, showModalTambah, formType, visible }) => {
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
-        copyStyles: true,        
+        copyStyles: true,
         content: () => componentRef.current
     });
-    
+
     return (
         <Fragment>
             <Search
@@ -55,7 +55,7 @@ const TableDefault = ({ dataTable , dataForm, dataPagination, form, onCreate, cl
                 onSearch={value => console.log(value)}
                 style={{ width: 200, marginBottom: 20 }}
             />
-            <Space className="float-right">                
+            <Space className="float-right">
                 <Tooltip title="Print">
                     <Button type="default" onClick={handlePrint} shape="circle" >
                         <PrinterOutlined />
@@ -85,7 +85,7 @@ const TableDefault = ({ dataTable , dataForm, dataPagination, form, onCreate, cl
                 pagination={false}
             />
             <Pagination
-                current={dataPagination.current}                
+                current={dataPagination.current}
                 showSizeChanger
                 onChange={dataPagination.handlePagination}
                 onShowSizeChange={dataPagination.handlePagination}

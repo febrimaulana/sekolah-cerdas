@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs, Button, Form } from 'antd';
-import { Tab1 } from './Tab';
+import { Tab1, Tab2 } from './Tab';
+import { getBase64 } from '../../../utils/config';
 
 const { TabPane } = Tabs;
 
@@ -9,6 +10,20 @@ const FormData = () => {
 
     const onFinish = values => {
         console.log('Success:', values);
+    };
+
+    const onChange = (value, type) => {
+        console.log(type, value);
+    }
+
+    const normFile = e => {
+        getBase64(e.file.originFileObj).then(res => {
+            console.log(res);
+        })
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
     };
 
     return (
@@ -23,10 +38,10 @@ const FormData = () => {
                 >
                     <Tabs type="card">
                         <TabPane tab="Pendaftaran Siswa" key="1">
-                            <Tab1 />
+                            <Tab1 onChange={onChange} normFile={normFile} />
                         </TabPane>
                         <TabPane tab="Detail Orang Tua" key="2">
-                            <p>Content of Tab Pane 2</p>
+                            <Tab2 />
                         </TabPane>
                         <TabPane tab="Tambah Rincian" key="3">
                             <p>Content of Tab Pane 3</p>
@@ -35,7 +50,7 @@ const FormData = () => {
                         </TabPane>
                     </Tabs>
                     <Form.Item>
-                        <Button className="float-right" type="primary" htmlType="submit">
+                        <Button className="float-right mt-3" type="primary" htmlType="submit">
                             Simpan
                         </Button>
                     </Form.Item>

@@ -7,6 +7,7 @@ import { dataForm } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
+import { useHistory } from 'react-router-dom';
 
 const DataSiswa = () => {
     // State
@@ -20,6 +21,7 @@ const DataSiswa = () => {
     const stateSiswa = useSelector(state => state.siswa);
     const dispatch = useDispatch();
     // End State
+    const history = useHistory();
 
     // handle CRUD
     const onCreate = async (values, status) => {
@@ -184,7 +186,7 @@ const DataSiswa = () => {
                     return (
                         <Space >
                             <Tooltip title="Lihat Data">
-                                <Button onClick={() => console.log(record)} type="default" shape="circle" >
+                                <Button onClick={() => history.push(`/siswa/data/detail/${record.id_siswa}`)} type="default" shape="circle" >
                                     <SearchOutlined />
                                 </Button>
                             </Tooltip>
@@ -226,7 +228,7 @@ const DataSiswa = () => {
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA {stateRoot.name}
+                    <i className="icon-user"></i> DATA SISWA
                 </div>
                 <div className="card-body">
                     <TableDefault

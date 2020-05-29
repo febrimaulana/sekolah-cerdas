@@ -1,20 +1,8 @@
 import React from 'react';
-import { Card, Row, Col, Form, Input, Select, DatePicker, Upload, Button } from 'antd';
+import { Card, Row, Col, Form, Input, Select, DatePicker, Upload, Button, InputNumber } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-const Tab1 = () => {
-
-    const onChange = (value, type) => {
-        console.log(type, value);
-    }
-
-
-    const normFile = e => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e && e.fileList;
-    };
+const Tab1 = ({ normFile, onChange }) => {
 
     return (
         <Card>
@@ -36,7 +24,7 @@ const Tab1 = () => {
                         label="NISN"
                         name="NISN"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Nomer NISN tidak boleh kosong!' }]}
                     >
                         <Input />
                     </Form.Item>
@@ -46,7 +34,7 @@ const Tab1 = () => {
                         label="Kelas"
                         name="kelas"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Kelas tidak boleh kosong!' }]}
+                        rules={[{ required: true, message: 'Silahkan pilih kelas!' }]}
                     >
                         <Select showSearch placeholder="Pilih" onChange={(value) => onChange(value, 'kelas')}>
                             <Select.Option value="1">Kelas 1</Select.Option>
@@ -59,7 +47,7 @@ const Tab1 = () => {
                         label="Sub Kelas"
                         name="subKelas"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Silahakan Pilih Subkelas!' }]}
                     >
                         <Select showSearch placeholder="Pilih" onChange={(value) => onChange(value, 'subKelas')}>
                             <Select.Option value="china">China</Select.Option>
@@ -74,7 +62,7 @@ const Tab1 = () => {
                         label="Nama Depan"
                         name="namaDepan"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[{ required: true, message: 'Nama Depan tidak boleh kosong!' }]}
                     >
                         <Input />
                     </Form.Item>
@@ -84,7 +72,7 @@ const Tab1 = () => {
                         label="Nama Belakang"
                         name="namaBelakang"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Nama belakang tidak boleh kosong!' }]}
                     >
                         <Input />
                     </Form.Item>
@@ -94,7 +82,7 @@ const Tab1 = () => {
                         label="Jenis Kelamin"
                         name="jeniskelamin"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Silahkan pilih jenis kelamin!' }]}
                     >
                         <Select showSearch placeholder="Pilih" onChange={(value) => onChange(value, 'kelas')}>
                             <Select.Option value="Laki - Laki">Laki - Laki</Select.Option>
@@ -107,7 +95,7 @@ const Tab1 = () => {
                         label="Tanggal Lahir"
                         name="tanggalLahir"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Silahakn pilih tanggal lahir!' }]}
                     >
                         <DatePicker placeholder="Pilih" style={{ width: '100%' }} />
                     </Form.Item>
@@ -119,11 +107,11 @@ const Tab1 = () => {
                         label="Kategori"
                         name="kategori"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[{ required: true, message: 'Silahkan pilih kategori!' }]}
                     >
                         <Select showSearch placeholder="Pilih" onChange={(value) => onChange(value, 'kelas')}>
-                            <Select.Option value="Laki - Laki">Laki - Laki</Select.Option>
-                            <Select.Option value="Perempuan">Perempuan</Select.Option>
+                            <Select.Option value="Beasiswa">Jalur Beasiswa</Select.Option>
+                            <Select.Option value="Pindahan">Pindahan</Select.Option>
                         </Select>
                     </Form.Item>
                 </Col>
@@ -132,7 +120,7 @@ const Tab1 = () => {
                         label="Agama"
                         name="agama"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Agama tidak boleh kosong!' }]}
                     >
                         <Input />
                     </Form.Item>
@@ -142,9 +130,12 @@ const Tab1 = () => {
                         label="Nomor Ponsel"
                         name="NomorPonsel"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[
+                            { required: true, message: 'Nomer ponsel tidak boleh kosong' },
+                            { type: 'number', message: 'Input harus number' }
+                        ]}
                     >
-                        <Input />
+                        <InputNumber style={{ width: '100%' }} />
                     </Form.Item>
                 </Col>
                 <Col span={6}>
@@ -152,7 +143,10 @@ const Tab1 = () => {
                         label="Email"
                         name="Email"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[
+                            { required: true, message: 'Email tidak boleh kosong!' },
+                            { type: 'email', message: 'Input email tidak valid' }
+                        ]}
                     >
                         <Input />
                     </Form.Item>
@@ -164,9 +158,12 @@ const Tab1 = () => {
                         label="Tinggi Badan"
                         name="TinggiBadan"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[
+                            { required: true, message: 'Tinggi badan tidak boleh kosong!' },
+                            { type: 'number', message: 'Input harus number' }
+                        ]}
                     >
-                        <Input />
+                        <InputNumber style={{ width: '100%' }} />
                     </Form.Item>
                 </Col>
                 <Col span={8}>
@@ -174,9 +171,12 @@ const Tab1 = () => {
                         label="Berat Badan"
                         name="BeratBadan"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[
+                            { required: true, message: 'Berat badan tidak boleh kosong!' },
+                            { type: 'number', message: 'Input harus number' }
+                        ]}
                     >
-                        <Input />
+                        <InputNumber style={{ width: '100%' }} />
                     </Form.Item>
                 </Col>
                 <Col span={8}>
@@ -184,7 +184,7 @@ const Tab1 = () => {
                         label="Tanggal Pengukuran"
                         name="TanggalPengukuran"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Silahkan pilih tanggal pengukuran!' }]}
                     >
                         <DatePicker placeholder="Pilih" style={{ width: '100%' }} />
                     </Form.Item>
@@ -198,10 +198,13 @@ const Tab1 = () => {
                         valuePropName="fileList"
                         getValueFromEvent={normFile}
                         wrapperCol={{ span: 20 }}
+                        rules={[
+                            { required: true, message: 'Silahkan pilih foto siswa' }
+                        ]}
                     >
-                        <Upload name="foto" action="/upload.do" listType="picture">
+                        <Upload name="logo" action="/upload.do" listType="picture">
                             <Button>
-                                <UploadOutlined /> Foto Siswa
+                                <UploadOutlined /> Upload Foto Siswa
                             </Button>
                         </Upload>
                     </Form.Item>
@@ -211,7 +214,7 @@ const Tab1 = () => {
                         label="Golongan Darah"
                         name="GoloanganDarah"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Silahkan pilih golongan darah!' }]}
                     >
                         <Select showSearch placeholder="Pilih" onChange={(value) => onChange(value, 'kelas')}>
                             <Select.Option value="0+">O+</Select.Option>
@@ -226,7 +229,6 @@ const Tab1 = () => {
                         label="Tambah Sodara Kandung"
                         name="SodaraKandung"
                         wrapperCol={{ span: 20 }}
-                        rules={[{ required: true, message: 'Please input your password!' }]}
                     >
                         <Select
                             mode="multiple"
