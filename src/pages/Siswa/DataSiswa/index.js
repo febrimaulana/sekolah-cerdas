@@ -232,6 +232,7 @@ const DataSiswa = () => {
                 </div>
                 <div className="card-body">
                     <TableDefault
+                        buttonHeader={true}
                         closeModal={closeModal}
                         dataForm={dataForm}
                         dataTable={dataTable}

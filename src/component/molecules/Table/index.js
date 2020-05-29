@@ -41,7 +41,7 @@ class TablePrint extends React.Component {
     }
 }
 
-const TableDefault = ({ dataTable, dataForm, dataPagination, form, onCreate, closeModal, showModalTambah, formType, visible }) => {
+const TableDefault = ({ dataTable, dataForm, dataPagination, form, onCreate, closeModal, showModalTambah, formType, visible, buttonHeader }) => {
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         copyStyles: true,
@@ -55,7 +55,7 @@ const TableDefault = ({ dataTable, dataForm, dataPagination, form, onCreate, clo
                 onSearch={value => console.log(value)}
                 style={{ width: 200, marginBottom: 20 }}
             />
-            <Space className="float-right">
+            {buttonHeader && <Space className="float-right">
                 <Tooltip title="Print">
                     <Button type="default" onClick={handlePrint} shape="circle" >
                         <PrinterOutlined />
@@ -73,7 +73,7 @@ const TableDefault = ({ dataTable, dataForm, dataPagination, form, onCreate, clo
                         <PlusOutlined />
                     </Button>
                 </Tooltip>
-            </Space>
+            </Space>}
             <Table
                 columns={dataTable.columns}
                 dataSource={dataTable.dataRow}
