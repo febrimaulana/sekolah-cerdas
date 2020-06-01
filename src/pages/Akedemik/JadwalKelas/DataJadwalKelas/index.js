@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Tooltip, Space, Select  } from 'antd';
+import  { Redirect,useHistory  } from 'react-router-dom'
+import { Button, Tooltip, Space, Select, Row, Col  } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import TableDefault from '../../../../component/molecules/Table';
@@ -12,18 +13,18 @@ import { ModalConfirm } from '../../../../component/atom/Notifikasi';
 
 const DataJadwalKelas = () => {    
     // State
+
+    const [valclass, setValclass]= useState('');
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 10
+
     })
     
-    
+  
     // function to select
     const { Option } = Select;
-
-    let classSelect = {1: 'Kelas 1', 2: 'Kelas 2'};
-
-
+   
     function onBlur(event) {
         console.log('blur');
     }
@@ -39,54 +40,38 @@ const DataJadwalKelas = () => {
       }
       
       function onChange(value) {
-        console.log(`selected ${value}`);
+       // console.log(`selected ${value}`);
+       
+        setValclass(value);
         dispatch(getselectSubclass({idsubclass: value}));
-        
+       // console.log('999999999999999999999999999999');
+       // console.log(valclass);
+      }
+
+      function onChangesub(value) {
+       // console.log(`selected ${value}`);
+       // dispatch(getselectSubclass({idsubclass: value}));
+       let data = {
+            page: 1,
+            limit: 10
+            
+        }
+        setPagination(data)
+        //console.log('999999999999999999999999999999');
+        //console.log(pagination);
+        dispatch(getDataJadwalClass({pagination: data,class:valclass,section:value}));
+     
       }
 
     // ====================
    
     // global state
     const stateRoot = useSelector(state => state.root);
-    const stateSiswa = useSelector(state => state.subclass);
+    const stateJadwalkelas = useSelector(state => state.jadwalkelas);
     const statelistsclass = useSelector(state => state.onchangeclass);
     const statelistsubclass = useSelector(state => state.onchangesubclass);
-    console.log("statelistsclass");
-    console.log(statelistsclass);
-
-    console.log("statelistsubclass");
-    console.log(statelistsubclass);
-    const dummysubclas=[
-        {
-            "id": 1,
-            "section": "A",
-            "is_active": "no",
-            "created_at": "2019-07-08T06:16:30.000Z",
-            "updated_at": "0000-00-00 00:00:00"
-        },
-        {
-            "id": 2,
-            "section": "B",
-            "is_active": "no",
-            "created_at": "2019-07-08T06:16:33.000Z",
-            "updated_at": "0000-00-00 00:00:00"
-        },
-        {
-            "id": 3,
-            "section": "C",
-            "is_active": "no",
-            "created_at": "2019-07-08T06:16:36.000Z",
-            "updated_at": "0000-00-00 00:00:00"
-        },
-        {
-            "id": 4,
-            "section": "D",
-            "is_active": "no",
-            "created_at": "2019-07-08T06:16:39.000Z",
-            "updated_at": "0000-00-00 00:00:00"
-        }
-    ];
-    console.log(stateSiswa);
+   
+    
 
     const dispatch = useDispatch();
     // End State
@@ -141,23 +126,15 @@ const DataJadwalKelas = () => {
     }
 
     // end handle table action
-
+    let history = useHistory();
     const showModalUbah = (record) => {
-        let data = [{
-            iidSubClassd: record.id,
-        },{
-            name: 'section',
-            value: record.section
-        },]
-
-        dispatch({type: 'SET_FORM', value: data})
-        dispatch({type: 'SET_MODAL', value: true})
-        dispatch({type: 'SET_FORM_TYPE', value: 'ubah'})
+        history.push('/akademik/tambahjadwalkelas/')
     }
 
     const showModalTambah = () => {
-        dispatch({type: 'SET_MODAL', value: true})
-        dispatch({type: 'SET_FORM_TYPE', value: 'tambah'})
+       // dispatch({type: 'SET_MODAL', value: true})
+       // dispatch({type: 'SET_FORM_TYPE', value: 'tambah'})
+       history.push('/akademik/tambahjadwalkelas/')
     }
 
     const closeModal = () => {
@@ -171,59 +148,90 @@ const DataJadwalKelas = () => {
     }
 
     // end modal
-    
+    let filterMonday=0;
+    let filterTuesday=0;
+    let filterWednesday=0;
+    let filterThursday=0;
+    let filterFriday=0;
+    let filterSaturday=0;
+    let filterSunday=0;
+
     const dataTable = {
+      
         columns: [
             {
-                title: 'Mata Pelajaran',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
+                title: 'HARI',
+                dataIndex: 'day_name',            
+                sorter: (a, b) => a.day_name - b.day_name,
+                render: (a) => {
+                 
+                    if (a === 'Monday') {
+                       // var filterMonday='1';
+                       filterMonday=filterMonday+1;
+                       if(filterMonday === 1){
+                            return a
+                       }
+                    
+                    } else if (a === 'Tuesday') {
+                        filterTuesday=filterTuesday+1;
+                        if(filterTuesday === 1){
+                             return a
+                        }
+                    }else if (a === 'Wednesday') {
+                        filterWednesday=filterWednesday+1;
+                        if(filterWednesday === 1){
+                             return a
+                        } 
+                    }else if (a === 'Thursday') {
+                        filterThursday=filterThursday+1;
+                        if(filterThursday === 1){
+                             return a
+                        }
+                    }else if (a === 'Friday') {
+                        filterFriday=filterFriday+1;
+                        if(filterFriday === 1){
+                             return a
+                        }
+                    }else if (a === 'Saturday') {
+                        filterSaturday=filterSaturday+1;
+                        if(filterSaturday === 1){
+                             return a
+                        }
+                    }else if (a === 'Sunday') {
+                        filterSunday=filterSunday+1;
+                        if(filterSunday === 1){
+                             return a
+                        }
+                    }
+                  
+                }
+                
             },
             {
                 title: 'Mata Pelajaran',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
+                dataIndex: 'name',            
+                sorter: (a, b) => a.name - b.name
             },
             {
-                title: 'Senin',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
+                title: 'Nomor Ruangan',
+                dataIndex: 'room_no',            
+                sorter: (a, b) => a.room_no - b.room_no
             },
             {
-                title: 'Selasa',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
+                title: 'Mulai',
+                dataIndex: 'rabu',            
+                sorter: (a, b) => a.start_time - b.start_time
             },
             {
-                title: 'Rabu',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
+                title: 'Selesai',
+                dataIndex: 'end_time',            
+                sorter: (a, b) => a.end_time - b.end_time
             },
-            {
-                title: 'Kamis',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
-            },
-            {
-                title: 'Jumat',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
-            },
-
-            {
-                title: 'Ssabtu',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
-            },
-            {
-                title: 'Minggu',
-                dataIndex: 'section',            
-                sorter: (a, b) => a.section - b.section
-            },
+          
            
         ],
-        //dataRow: stateSiswa.data.data,
-        dataRow: dummysubclas,
+        dataRow: stateJadwalkelas.data.data,
+        //dataRow: dummysubclas,
         idRow: 'id',
         handleSort: handleSort,
         loading: stateRoot.loading
@@ -231,18 +239,18 @@ const DataJadwalKelas = () => {
 
     const dataPagination = {
         handlePagination: handlePagination,
-        countData: stateSiswa.data.total,
+        countData: stateJadwalkelas.data.total,
         current: pagination.page
     }
 
     useEffect(() => {
-        dispatch(getDataJadwalClass({pagination: pagination}));
-       dispatch(getDataJadwalClass({pagination: pagination}));
+        //dispatch(getDataJadwalClass({pagination: pagination}));
+       //dispatch(getDataJadwalClass({pagination: pagination}));
        dispatch(getselectclass({pagination: pagination}));
         
         
         return () => {
-            dispatch(getDataJadwalClass({pagination: pagination}));
+           // dispatch(getDataJadwalClass({pagination: pagination}));
         }
     }, [dispatch, pagination])    
 
@@ -253,7 +261,10 @@ const DataJadwalKelas = () => {
                     <i className="icon-user"></i> Jadwal Kelas {stateRoot.name}
                 </div>
                 <div className="card-body">
-                <Select
+                <Row gutter={16}>
+     
+      <Col className="gutter-row" span={6}>
+        <div > <Select
                     showSearch
                     style={{ width: 500 }}
                     placeholder="Select a person"
@@ -266,25 +277,35 @@ const DataJadwalKelas = () => {
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
                 >
+                    
                      <Option value=""></Option>   
                     { Object.entries(statelistsclass.data).map((v,k) => <option key={k} value={v[0]}>{v[1]}</option>) }   
                 </Select>
-                
-                
-                
+                </div>
+      </Col>
+      <Col className="gutter-row" span={2}>
+        <div ></div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>  
                 <Select
                     showSearch
                     style={{ width: 500 }}
                     placeholder="Select a person"
                     optionFilterProp="children"
-                   
+                    onChange={onChangesub}
                     filterOption={(input, option) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
                 >
                     <Option value=""></Option>
                     { Object.entries(statelistsubclass.data).map((v,k) => <option key={k} value={v[0]}>{v[1]}</option>) }   
-                </Select>
+                </Select></div>
+      </Col>
+    </Row>   
+               
+                
+              
                 </div>
                 <div className="card-body">
                     

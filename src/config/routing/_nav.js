@@ -290,6 +290,21 @@ export default {
           icon: 'icon-puzzle',
         },
         {
+          name: 'Wali Kelas',
+          url: '/akademik/walikelas',
+          icon: 'icon-puzzle',
+        },
+         {
+          name: 'Daftar Mata Pelajaran',
+          url: '/akademik/matapelajaran',
+          icon: 'icon-puzzle',
+        },
+        {
+          name: 'Kelas',
+          url: '/akademik/kelas',
+          icon: 'icon-puzzle',
+        },
+        {
           name: 'Sub Class',
           url: '/akademik/subclass',
           icon: 'icon-puzzle',

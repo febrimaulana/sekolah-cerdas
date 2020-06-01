@@ -13,6 +13,9 @@ import ReducerUjian from './Ujian';
 import ReducerPerpustakaan from './Perpustakaan';
 import ReducerSumberDayaManusia from './SumberDayaManusia';
 import ReducerDaftarBiaya from './DaftarBiaya';
+import ReducerJadwalKelas from './jadwalkelas';
+import Reducermatapelajaran from './matapelajaran';
+import ReducerKelas from './kelas';
 
 const reducer = {
     root: ReducerRoot,
@@ -27,6 +30,9 @@ const reducer = {
     perpustakaan: ReducerPerpustakaan,
     sumberdayamanusia: ReducerSumberDayaManusia,
     daftarbiaya: ReducerDaftarBiaya,
+    jadwalkelas: ReducerJadwalKelas,
+    matapelajaran: Reducermatapelajaran,
+    kelas: ReducerKelas,
 }
 
 const configReduxPersist = {
