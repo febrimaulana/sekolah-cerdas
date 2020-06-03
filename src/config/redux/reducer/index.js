@@ -7,12 +7,6 @@ import ReducerSiswa from './siswa';
 import ReducerSubClass from './subclass';
 import ReducerOnchangeclass from './onchangeclass';
 import ReducerOnchangesubclass from './onchangesubclass';
-import ReducerPendapatan from './Pendapatan';
-import ReducerPengeluaran from './Pengeluaran';
-import ReducerUjian from './Ujian';
-import ReducerPerpustakaan from './Perpustakaan';
-import ReducerSumberDayaManusia from './SumberDayaManusia';
-import ReducerDaftarBiaya from './DaftarBiaya';
 import ReducerJadwalKelas from './jadwalkelas';
 import Reducermatapelajaran from './matapelajaran';
 import ReducerKelas from './kelas';
@@ -24,12 +18,6 @@ const reducer = {
     subclass: ReducerSubClass,
     onchangeclass: ReducerOnchangeclass,
     onchangesubclass: ReducerOnchangesubclass,
-    pendapatan: ReducerPendapatan,
-    pengeluaran: ReducerPengeluaran,
-    ujian: ReducerUjian,
-    perpustakaan: ReducerPerpustakaan,
-    sumberdayamanusia: ReducerSumberDayaManusia,
-    daftarbiaya: ReducerDaftarBiaya,
     jadwalkelas: ReducerJadwalKelas,
     matapelajaran: Reducermatapelajaran,
     kelas: ReducerKelas,

@@ -10,6 +10,8 @@ import { TambahJadwalKelas } from '../../pages/Akedemik/TambahJadwalKelas';
 import { DataMatapelajaran } from '../../pages/Akedemik/MataPelajaran';
 import { DataKelas } from '../../pages/Akedemik/Kelas';
 import { DataWaliKelas } from '../../pages/Akedemik/WaliKelas';
+import { DataGuruMataPelajaran } from '../../pages/Akedemik/GuruMataPelajaran';
+import { DataNaikKelas } from '../../pages/Akedemik/NaikKelas';
 
 
 const routes = [
@@ -21,6 +23,8 @@ const routes = [
   { path: '/akademik/kelas/', name: 'Dashboard', component: DataKelas },
   { path: '/akademik/walikelas/', name: 'Dashboard', component: DataWaliKelas },
   { path: '/akademik/tambahjadwalkelas/', name: 'Dashboard', component: TambahJadwalKelas },
+  { path: '/akademik/gurumatapelajaran', name: 'Dashboard', component: DataGuruMataPelajaran },
+  { path: '/akademik/kenaikan', name: 'Dashboard', component: DataNaikKelas },
 ];
 
 

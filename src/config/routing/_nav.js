@@ -294,6 +294,16 @@ export default {
           url: '/akademik/walikelas',
           icon: 'icon-puzzle',
         },
+        {
+          name: 'Guru Mata Perlajaram',
+          url: '/akademik/gurumatapelajaran',
+          icon: 'icon-puzzle',
+        },
+        {
+         name: 'Kenaikan Kelas',
+         url: '/akademik/kenaikan',
+         icon: 'icon-puzzle',
+       },,
          {
           name: 'Daftar Mata Pelajaran',
           url: '/akademik/matapelajaran',

@@ -3,7 +3,7 @@ import  { Redirect } from 'react-router-dom'
 import { Button, Tooltip, Space, Select, Row, Col, Divider,TimePicker,Modal, Form, Input, Radio, Checkbox, DatePicker, Upload } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import TableDefault from '../../../../component/molecules/Table';
+//import TableDefault from '../../../../component/molecules/Table';
 import { dataForm } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDataJadwalClass, addDataJadwalClass, deleteDataJadwalClass, updateDataJadwalClass} from '../../../../config/redux/action/jadwalkelas';
@@ -13,14 +13,14 @@ import { ModalConfirm } from '../../../../component/atom/Notifikasi';
 
 const DataJadwalKelas = () => {  
     
-    
+    const [form] = Form.useForm();
     // State
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 10
     })
     
-    const style = { background: '#0092ff', padding: '8px 0' };  
+   
     //fungtionto setting time
     function onChangetime(time, timeString) {
         console.log(time, timeString);
@@ -49,7 +49,16 @@ const DataJadwalKelas = () => {
       }
 
     // ====================
-   
+   function saveForm(){
+    console.log('dfdsffsdfsfsdfsfsdf');
+    form
+    .validateFields()
+    .then(values => {
+        form.resetFields();
+        console.log(moment(values.username).format());
+    })
+
+   }
     // global state
     const stateRoot = useSelector(state => state.root);
     const stateJadwalkelas = useSelector(state => state.jadwalkelas);
@@ -143,69 +152,7 @@ const DataJadwalKelas = () => {
     }
 
     // end modal
-    
-    const dataTable = {
-        columns: [
-            {
-                title: 'Mata Pelajaran',
-                dataIndex: 'matapelajaran',            
-                sorter: (a, b) => a.matapelajaran - b.matapelajaran
-            },
-            {
-                title: 'Senin',
-                dataIndex: 'senin',            
-                sorter: (a, b) => a.senin - b.senin
-            },
-            {
-                title: 'Selasa',
-                dataIndex: 'selasa',            
-                sorter: (a, b) => a.selasa - b.selasa
-            },
-            {
-                title: 'rabu',
-                dataIndex: 'rabu',            
-                sorter: (a, b) => a.rabu - b.rabu
-            },
-            {
-                title: 'Rabu',
-                dataIndex: 'rabu',            
-                sorter: (a, b) => a.rabu - b.rabu
-            },
-            {
-                title: 'Kamis',
-                dataIndex: 'kamis',            
-                sorter: (a, b) => a.kamis - b.kamis
-            },
-            {
-                title: 'Jumat',
-                dataIndex: 'jumat',            
-                sorter: (a, b) => a.jumat - b.jumat
-            },
-
-            {
-                title: 'Sabtu',
-                dataIndex: 'sabtu',            
-                sorter: (a, b) => a.sabtu - b.sabtu
-            },
-            {
-                title: 'Minggu',
-                dataIndex: 'minggu',            
-                sorter: (a, b) => a.minggu - b.minggu
-            },
-           
-        ],
-        dataRow: stateJadwalkelas.data.data,
-        //dataRow: dummysubclas,
-        idRow: 'id',
-        handleSort: handleSort,
-        loading: stateRoot.loading
-    }
-
-    const dataPagination = {
-        handlePagination: handlePagination,
-        countData: stateJadwalkelas.data.total,
-        current: pagination.page
-    }
+   
 
     useEffect(() => {
         dispatch(getDataJadwalClass({pagination: pagination}));
@@ -292,126 +239,145 @@ const DataJadwalKelas = () => {
                     <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
                     
                     </Divider>
-                    <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div >SENIN</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                    <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />    
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    </Row>    
-                    <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
+
+                    <Form
+                        form={form}
+                        name="global_state"
+                       // layout="inline"
+                        //fields={fields}
+                      
+                    >
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={6}>
+                            <div >SENIN</div>
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                        <Form.Item
      
-                    </Divider>
-                    <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div >SALASA </div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
+                        name="username"
+                       // rules={[{ required: true, message: 'Please input your username!' }]}
+                    >
                         <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    </Row>    
-                    <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
-                    
-                    </Divider>
-                    <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div >RABU</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    </Row>    
-                    <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
-                    
-                    </Divider>
-                    <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div >KAMIS</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
+                    </Form.Item>   
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        </Row>    
+                        <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
+        
+                        </Divider>
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={6}>
+                            <div >SALASA </div>
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        </Row>    
+                        <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
                         
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    </Row>    
-                    <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
-                    
-                    </Divider>
-                    <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div >JUMAT</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                         <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    </Row>    
-                    <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
-                    
-                    </Divider>
-                    <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div >SABTU</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                    <   TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} span={6}/> 
-                    </Col>
-                    </Row>  
-                    <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
-                    
-                    </Divider>      
-                    <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div >MINGGU</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                    <   TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} span={6}/> 
-                    </Col>
-                    </Row>   
-                    <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
-                    
-                    </Divider> 
-                    <Button type="primary">Simpan</Button>         
+                        </Divider>
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={6}>
+                            <div >RABU</div>
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        </Row>    
+                        <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
+                        
+                        </Divider>
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={6}>
+                            <div >KAMIS</div>
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        </Row>    
+                        <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
+                        
+                        </Divider>
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={6}>
+                            <div >JUMAT</div>
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        </Row>    
+                        <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
+                        
+                        </Divider>
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={6}>
+                            <div >SABTU</div>
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                        <   TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} span={6}/> 
+                        </Col>
+                        </Row>  
+                        <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
+                        
+                        </Divider>      
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={6}>
+                            <div >MINGGU</div>
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> 
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                        <   TimePicker onChange={onChangetime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} span={6}/> 
+                        </Col>
+                        </Row>   
+                        <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
+                        
+                        </Divider> 
+                        <Form.Item >
+                        <Button type="primary" htmlType="submit" onClick={saveForm}>
+                        Submit
+                        </Button>
+                    </Form.Item>
+                    </Form>
                 </div>
             </div>            
         </div>
