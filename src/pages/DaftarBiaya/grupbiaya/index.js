@@ -5,11 +5,10 @@ import moment from 'moment';
 import TableDefault from '../../../component/molecules/Table';
 import { dataForm } from './data';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
+import { getDataGrupBiaya, addGrupBiaya, deleteGrupBiaya, updateGrupBiaya } from '../../../config/redux/action/DaftarBiaya';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
-import { useHistory } from 'react-router-dom';
 
-const DataSiswa = () => {
+const GrupBiaya = () => {    
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -18,46 +17,42 @@ const DataSiswa = () => {
 
     // global state
     const stateRoot = useSelector(state => state.root);
-    const stateSiswa = useSelector(state => state.siswa);
+    const statedaftarbiaya = useSelector(state => state.daftarbiaya);
     const dispatch = useDispatch();
     // End State
 
-    const history = useHistory();
-
     // handle CRUD
- 
-    const onCreate = async (values, status) => {    
-
+    const onCreate =  async (values, status) => {        
         const date = moment(new Date(values.dateOfBirthStudent)).format('YYYY-MM-DD')
         const dataInput = {
             ...values,
             dateOfBirthStudent: date
         }
-
-        if (status === 'tambah') {
-            await dispatch(addDataSiswa(dataInput));
-            dispatch(getDataSiswa({ pagination: pagination }));
-        } else if (status === 'ubah') {
+        
+        if (status === 'tambah') {                                  
+            await dispatch(addGrupBiaya(dataInput));
+            dispatch(getDataGrupBiaya({pagination: pagination}));
+        } else if (status === 'ubah') {            
             const id = stateRoot.form[0].id;
             const dataUbah = {
                 ...dataInput,
                 idStudent: id
             }
-            await dispatch(updateDataSiswa(dataUbah));
-            dispatch(getDataSiswa({ pagination: pagination }));
+            await dispatch(updateGrupBiaya(dataUbah));
+            dispatch(getDataGrupBiaya({pagination: pagination}));
         }
     };
 
-    const handleHapus = (record) => {
+    const handleHapus = (record) => {         
         ModalConfirm(
             'Apa anda yakin ?',
             'Data yang sudah dihpaus tidak bisa kembali lagi!',
             'Hapus',
             async () => {
-                await dispatch(deleteDataSiswa({ idStudent: record.id_siswa }));
-                dispatch(getDataSiswa({ pagination: pagination }));
+                await dispatch(deleteGrupBiaya({idStudent: record.id_siswa}));
+                dispatch(getDataGrupBiaya({pagination: pagination}));
             }
-        )
+        )           
     }
     // end crud handle
 
@@ -66,13 +61,13 @@ const DataSiswa = () => {
         console.log(sorter)
     }
 
-    const handlePagination = (current, pageSize) => {
+    const handlePagination = (current, pageSize) => {        
         let data = {
             page: current,
             limit: pageSize
         }
         setPagination(data)
-        dispatch(getDataSiswa({ pagination: pagination }));
+        dispatch(getDataGrupBiaya({pagination: pagination}));
     }
 
     // end handle table action
@@ -80,7 +75,7 @@ const DataSiswa = () => {
     const showModalUbah = (record) => {
         let data = [{
             id: record.id_siswa,
-        }, {
+        },{
             name: 'nameStudent',
             value: record.nama_siswa
         }, {
@@ -100,14 +95,14 @@ const DataSiswa = () => {
             value: record.orang_tua_siswa
         },]
 
-        dispatch({ type: 'SET_FORM', value: data })
-        dispatch({ type: 'SET_MODAL', value: true })
-        dispatch({ type: 'SET_FORM_TYPE', value: 'ubah' })
+        dispatch({type: 'SET_FORM', value: data})
+        dispatch({type: 'SET_MODAL', value: true})
+        dispatch({type: 'SET_FORM_TYPE', value: 'ubah'})
     }
 
     const showModalTambah = () => {
-        dispatch({ type: 'SET_MODAL', value: true })
-        dispatch({ type: 'SET_FORM_TYPE', value: 'tambah' })
+        dispatch({type: 'SET_MODAL', value: true})
+        dispatch({type: 'SET_FORM_TYPE', value: 'tambah'})
     }
 
     const closeModal = () => {
@@ -129,68 +124,61 @@ const DataSiswa = () => {
         }, {
             name: 'parentsStudent',
             value: ''
-        },]
+        }, ]
 
-        dispatch({ type: 'SET_FORM', value: data })
-        dispatch({ type: 'SET_MODAL', value: false })
+        dispatch({type: 'SET_FORM', value: data})
+        dispatch({type: 'SET_MODAL', value: false})
     }
 
     // end modal
-
+    
     const dataTable = {
         columns: [
             {
-                title: 'Nama Siswa',
-                dataIndex: 'nama_siswa',
-                sorter: (a, b) => a.nama_siswa.length - b.nama_siswa.length,
+                title: 'Grup Biaya',
+                dataIndex: 'nama_siswa',            
+                sorter: (a, b) => a.nama - b.nama
             },
+            // {
+            //     title: 'Tanggal Lahir',
+            //     dataIndex: 'tanggal_lahir_siswa',
+            //     responsive: ['md'],
+            //     sorter: (a, b) => a.alamat - b.alamat
+            // },
+            // {
+            //     title: 'Jenis Kelamin',
+            //     dataIndex: 'jenis_kelamin_siswa',
+            //     responsive: ['md'],
+            //     sorter: (a, b) => a.alamat - b.alamat,
+            //     render: (a) => {
+            //         if (a === 'L') {
+            //             return 'Laki - Laki'
+            //         } else {
+            //             return "Perempuan"
+            //         }
+            //     }
+            // },
+            // {
+            //     title: 'Alamat',
+            //     dataIndex: 'alamat_siswa',
+            //     responsive: ['md'],
+            //     sorter: (a, b) => a.alamat - b.alamat
+            // },
+            // {
+            //     title: 'Orang Tua',
+            //     dataIndex: 'orang_tua_siswa',
+            //     responsive: ['md'],
+            //     sorter: (a, b) => a.alamat - b.alamat
+            // },
             {
-                title: 'Tempat Lahir',
-                dataIndex: 'tempat_lahir_siswa',
-                responsive: ['sm'],
-                sorter: (a, b) => a.tempat_lahir_siswa.length - b.tempat_lahir_siswa.length
-            },
-            {
-                title: 'Tanggal Lahir',
-                dataIndex: 'tanggal_lahir_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.tanggal_lahir_siswa.length - b.tanggal_lahir_siswa.length
-            },
-            {
-                title: 'Jenis Kelamin',
-                dataIndex: 'jenis_kelamin_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.jenis_kelamin_siswa.length - b.jenis_kelamin_siswa.length,
-                render: (a) => {
-                    if (a === 'L') {
-                        return 'Laki - Laki'
-                    } else if (a === 'P') {
-                        return "Perempuan"
-                    }
-                }
-            },
-            {
-                title: 'Alamat',
-                dataIndex: 'alamat_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.alamat_siswa.length - b.alamat_siswa.length,
-            },
-            {
-                title: 'Orang Tua',
-                dataIndex: 'orang_tua_siswa',
-                responsive: ['md'],
-                sorter: (a, b) => a.orang_tua_siswa.length - b.orang_tua_siswa.length,
-            },
-            {
-                title: 'Akasi',
-                dataIndex: 'aksi',
-
+                title: 'Aksi',
+                dataIndex: 'aksi',            
                 align: 'center',
                 render: (text, record) => {
                     return (
                         <Space >
                             <Tooltip title="Lihat Data">
-                                <Button onClick={() => history.push(`/siswa/data/detail/${record.id_siswa}`)} type="default" shape="circle" >
+                                <Button onClick={() => console.log(record)} type="default" shape="circle" >
                                     <SearchOutlined />
                                 </Button>
                             </Tooltip>
@@ -209,7 +197,7 @@ const DataSiswa = () => {
                 }
             },
         ],
-        dataRow: stateSiswa.data.data,
+        dataRow: statedaftarbiaya.dataGrupBiaya.data,
         idRow: 'id_siswa',
         handleSort: handleSort,
         loading: stateRoot.loading
@@ -217,32 +205,31 @@ const DataSiswa = () => {
 
     const dataPagination = {
         handlePagination: handlePagination,
-        countData: stateSiswa.data.total,
+        countData: statedaftarbiaya.dataGrupBiaya.total,
         current: pagination.page
     }
 
     useEffect(() => {
-        dispatch(getDataSiswa({ pagination: pagination }));
+        dispatch(getDataGrupBiaya({pagination: pagination}));
         return () => {
-            dispatch(getDataSiswa({ pagination: pagination }));
+            dispatch(getDataGrupBiaya({pagination: pagination}));
         }
-    }, [dispatch, pagination])
+    }, [dispatch, pagination])    
 
     return (
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA
+                    <i className="icon-user"></i> DAFTAR GRUP BIAYA {stateRoot.name}
                 </div>
                 <div className="card-body">
                     <TableDefault
-                        buttonHeader={true}
-                        closeModal={closeModal}
+                        closeModal={closeModal}                        
                         dataForm={dataForm}
                         dataTable={dataTable}
                         dataPagination={dataPagination}
                         form={stateRoot.form}
-                        formType={stateRoot.formType}
+                        formType={stateRoot.formType}                        
                         handleSort={handleSort}
                         onCreate={onCreate}
                         showModalTambah={showModalTambah}
@@ -250,9 +237,9 @@ const DataSiswa = () => {
                         visible={stateRoot.modal}
                     />
                 </div>
-            </div>
+            </div>            
         </div>
     )
 }
 
-export default DataSiswa;
+export default GrupBiaya;
