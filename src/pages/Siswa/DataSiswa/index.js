@@ -7,8 +7,9 @@ import { dataForm } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDataSiswa, addDataSiswa, deleteDataSiswa, updateDataSiswa } from '../../../config/redux/action/siswa';
 import { ModalConfirm } from '../../../component/atom/Notifikasi';
+import { useHistory } from 'react-router-dom';
 
-const DataSiswa = () => {    
+const DataSiswa = () => {
     // State
     const [pagination, setPagination] = useState({
         page: 1,
@@ -20,38 +21,43 @@ const DataSiswa = () => {
     const stateSiswa = useSelector(state => state.siswa);
     const dispatch = useDispatch();
     // End State
-  
-    const onCreate =  async (values, status) => {        
+
+    const history = useHistory();
+
+    // handle CRUD
+ 
+    const onCreate = async (values, status) => {    
+
         const date = moment(new Date(values.dateOfBirthStudent)).format('YYYY-MM-DD')
         const dataInput = {
             ...values,
             dateOfBirthStudent: date
         }
-        
-        if (status === 'tambah') {                                  
+
+        if (status === 'tambah') {
             await dispatch(addDataSiswa(dataInput));
-            dispatch(getDataSiswa({pagination: pagination}));
-        } else if (status === 'ubah') {            
+            dispatch(getDataSiswa({ pagination: pagination }));
+        } else if (status === 'ubah') {
             const id = stateRoot.form[0].id;
             const dataUbah = {
                 ...dataInput,
                 idStudent: id
             }
             await dispatch(updateDataSiswa(dataUbah));
-            dispatch(getDataSiswa({pagination: pagination}));
+            dispatch(getDataSiswa({ pagination: pagination }));
         }
     };
 
-    const handleHapus = (record) => {         
+    const handleHapus = (record) => {
         ModalConfirm(
             'Apa anda yakin ?',
             'Data yang sudah dihpaus tidak bisa kembali lagi!',
             'Hapus',
             async () => {
-                await dispatch(deleteDataSiswa({idStudent: record.id_siswa}));
-                dispatch(getDataSiswa({pagination: pagination}));
+                await dispatch(deleteDataSiswa({ idStudent: record.id_siswa }));
+                dispatch(getDataSiswa({ pagination: pagination }));
             }
-        )           
+        )
     }
     // end crud handle
 
@@ -60,13 +66,13 @@ const DataSiswa = () => {
         console.log(sorter)
     }
 
-    const handlePagination = (current, pageSize) => {        
+    const handlePagination = (current, pageSize) => {
         let data = {
             page: current,
             limit: pageSize
         }
         setPagination(data)
-        dispatch(getDataSiswa({pagination: pagination}));
+        dispatch(getDataSiswa({ pagination: pagination }));
     }
 
     // end handle table action
@@ -74,7 +80,7 @@ const DataSiswa = () => {
     const showModalUbah = (record) => {
         let data = [{
             id: record.id_siswa,
-        },{
+        }, {
             name: 'nameStudent',
             value: record.nama_siswa
         }, {
@@ -94,14 +100,14 @@ const DataSiswa = () => {
             value: record.orang_tua_siswa
         },]
 
-        dispatch({type: 'SET_FORM', value: data})
-        dispatch({type: 'SET_MODAL', value: true})
-        dispatch({type: 'SET_FORM_TYPE', value: 'ubah'})
+        dispatch({ type: 'SET_FORM', value: data })
+        dispatch({ type: 'SET_MODAL', value: true })
+        dispatch({ type: 'SET_FORM_TYPE', value: 'ubah' })
     }
 
     const showModalTambah = () => {
-        dispatch({type: 'SET_MODAL', value: true})
-        dispatch({type: 'SET_FORM_TYPE', value: 'tambah'})
+        dispatch({ type: 'SET_MODAL', value: true })
+        dispatch({ type: 'SET_FORM_TYPE', value: 'tambah' })
     }
 
     const closeModal = () => {
@@ -125,18 +131,18 @@ const DataSiswa = () => {
             value: ''
         },]
 
-        dispatch({type: 'SET_FORM', value: data})
-        dispatch({type: 'SET_MODAL', value: false})
+        dispatch({ type: 'SET_FORM', value: data })
+        dispatch({ type: 'SET_MODAL', value: false })
     }
 
     // end modal
-    
+
     const dataTable = {
         columns: [
             {
                 title: 'Nama Siswa',
                 dataIndex: 'nama_siswa',
-                sorter: (a, b) => a.nama_siswa.length - b.nama_siswa.length,                
+                sorter: (a, b) => a.nama_siswa.length - b.nama_siswa.length,
             },
             {
                 title: 'Tempat Lahir',
@@ -176,14 +182,15 @@ const DataSiswa = () => {
                 sorter: (a, b) => a.orang_tua_siswa.length - b.orang_tua_siswa.length,
             },
             {
-                title: 'Aksi',
-                dataIndex: 'aksi',            
+                title: 'Akasi',
+                dataIndex: 'aksi',
+
                 align: 'center',
                 render: (text, record) => {
                     return (
                         <Space >
                             <Tooltip title="Lihat Data">
-                                <Button onClick={() => console.log(record)} type="default" shape="circle" >
+                                <Button onClick={() => history.push(`/siswa/data/detail/${record.id_siswa}`)} type="default" shape="circle" >
                                     <SearchOutlined />
                                 </Button>
                             </Tooltip>
@@ -215,26 +222,27 @@ const DataSiswa = () => {
     }
 
     useEffect(() => {
-        dispatch(getDataSiswa({pagination: pagination}));
+        dispatch(getDataSiswa({ pagination: pagination }));
         return () => {
-            dispatch(getDataSiswa({pagination: pagination}));
+            dispatch(getDataSiswa({ pagination: pagination }));
         }
-    }, [dispatch, pagination])    
+    }, [dispatch, pagination])
 
     return (
         <div className="animated fadeIn">
             <div className="card">
                 <div className="card-header">
-                    <i className="icon-user"></i> DATA SISWA {stateRoot.name}
+                    <i className="icon-user"></i> DATA SISWA
                 </div>
                 <div className="card-body">
                     <TableDefault
-                        closeModal={closeModal}                        
+                        buttonHeader={true}
+                        closeModal={closeModal}
                         dataForm={dataForm}
                         dataTable={dataTable}
                         dataPagination={dataPagination}
                         form={stateRoot.form}
-                        formType={stateRoot.formType}                        
+                        formType={stateRoot.formType}
                         handleSort={handleSort}
                         onCreate={onCreate}
                         showModalTambah={showModalTambah}
@@ -242,7 +250,7 @@ const DataSiswa = () => {
                         visible={stateRoot.modal}
                     />
                 </div>
-            </div>            
+            </div>
         </div>
     )
 }

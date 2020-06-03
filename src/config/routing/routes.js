@@ -1,7 +1,7 @@
 import Dashboard from '../../pages/Dashboard';
 
 // Siswa import
-import { DataSiswa } from '../../pages/Siswa';
+import { DataSiswa, Form, DetailSiswa } from '../../pages/Siswa';
 // Siswa import
 import { DataSubClass } from '../../pages/Akedemik/SubClass';
 
@@ -27,9 +27,11 @@ import { Unggah } from '../../pages/Unduhan';
 import { BahanAjar } from '../../pages/Unduhan';
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', exact: true, name: 'Dashboard', component: Dashboard },
-  { path: '/siswa/data/', name: 'Dashboard', component: DataSiswa },
+  { path: '/', exact: true },
+  { path: '/dashboard', exact: true, component: Dashboard },
+  { path: '/siswa/data/', exact: true, component: DataSiswa },
+  { path: '/siswa/data/detail/:id', exact: true, component: DetailSiswa },
+  { path: '/siswa/data/tambah', exact: true, component: Form },
   { path: '/akademik/jadwalkelas/', name: 'Dashboard', component: DataJadwalKelas },
   { path: '/akademik/subclass/', name: 'Dashboard', component: DataSubClass },
   { path: '/pendapatan/tipependapatan/', name: 'Dashboard', component: TipePendapatan },
@@ -57,6 +59,7 @@ const routes = [
   { path: '/Inventaris/Toko/', name: 'Dashboard', component: Toko },
   { path: '/Unduhan/Unggah/', name: 'Dashboard', component: Unggah },
   { path: '/Unduhan/BahanAjar/', name: 'Dashboard', component: BahanAjar },
+
 ];
 
 export default routes;
